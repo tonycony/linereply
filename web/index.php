@@ -18,7 +18,7 @@ $post_data = [
   "messages" => [
     [
       "type" => "text",
-      "text" => $message
+      "text" => $message->{"text"}
     ]
   ]
 ]; 
