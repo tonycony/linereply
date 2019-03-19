@@ -1,5 +1,5 @@
 <?php
-$access_token ='IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU=';
+$access_token ='qnbmtGNu4WSx61Hv26fxOhU//19ru/BMY8Q9n3RTb/etyCU3Qaghfhu5MX4wMurlEKQJiekFoFcR0N4NgtQV71h8Q2Z8okh7F2zpgl48lY1LRnZrA00S30e0Qr31MM2hkD7rN9Q/RRdA61wBIuGcxwdB04t89/1O/w1cDnyilFU=';
 //define('TOKEN', '你的Channel Access Token');
 
 $json_string = file_get_contents('php://input');
