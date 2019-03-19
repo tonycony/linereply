@@ -9,7 +9,7 @@ fwrite($file, $json_string."\n");
 $json_obj = json_decode($json_string);
 $event = $json_obj->{"events"}[0];
 $type  = $event->{"message"}->{"type"};
-$message = $event->{"message"};
+$message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 
 $reply_token = $event->{"replyToken"};
@@ -18,7 +18,7 @@ $post_data = [
   "messages" => [
     [
       "type" => "text",
-      "text" => $message->{"text"}
+      "text" => $message
     ]
   ]
 ]; 
@@ -41,6 +41,6 @@ fwrite($file, $result."\n");
 fclose($file);
 curl_close($ch); 
 include("mysql_connect.inc.php");
-$sql="insert into user(user_id) values ('$user_id')";
+$sql="insert into user(user_id, user_name) values ('$user_id, $message')";
 mysqli_query($link,$sql);
 ?>
