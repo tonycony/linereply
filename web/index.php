@@ -41,8 +41,6 @@ fwrite($file, $result."\n");
 fclose($file);
 curl_close($ch); 
 include("mysql_connect.inc.php");
-//$sql="insert into user(user_id) values ('$user_id')";
-$sql2="insert into user(user_name) values ('$message->{"text"}')";
-//mysqli_query($link,$sql);
-mysqli_query($link,$sql2);
+$sql="insert into user(user_id) values ('$user_id')";
+mysqli_query($link,$sql);
 ?>
