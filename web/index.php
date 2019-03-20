@@ -19,7 +19,7 @@ if($Type => "follow"){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => ''
+		  "text" => 'ok'
 		]
 	  ]
 	]; 
