@@ -4,25 +4,25 @@ $access_token ='IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWB
 
 $json_string = file_get_contents('php://input');
 
-$file = fopen("D:\\Line_log.txt", "a+");
-fwrite($file, $json_string."\n"); 
+//$file = fopen("D:\\Line_log.txt", "a+");
+//fwrite($file, $json_string."\n"); 
 $json_obj = json_decode($json_string);
 $event = $json_obj->{"events"}[0];
 $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
-
+$message1 = isset($argv[1]) ? $argv[1] : 'OK！';
 $reply_token = $event->{"replyToken"};
 $post_data = [
   "replyToken" => $reply_token,
   "messages" => [
     [
       "type" => "text",
-      "text" => 'OK！'
+      "text" => $message1
     ]
   ]
 ]; 
-fwrite($file, json_encode($post_data)."\n");
+//fwrite($file, json_encode($post_data)."\n");
 
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
@@ -37,8 +37,8 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     //'Authorization: Bearer '. TOKEN
 ));
 $result = curl_exec($ch);
-fwrite($file, $result."\n");  
-fclose($file);
+//fwrite($file, $result."\n");  
+//fclose($file);
 curl_close($ch); 
 include("mysql_connect.inc.php");
 $sql="insert into user(user_id, user_name) values ('$user_id', '$message')";
