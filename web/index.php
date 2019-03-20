@@ -13,17 +13,17 @@ $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 $Type=$event->{"type"};
 $reply_token = $event->{"replyToken"};
-if($Type => "follow"){
-	$post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
+$post_data = [
+	"replyToken" => $reply_token,
+	"type" => "follow",
+	"messages" => [
 		[
-		  "type" => "text",
-		  "text" => 'ok'
+			"type" => "text",
+			"text" => 'ok'
 		]
-	  ]
-	]; 
-}
+	]
+]; 
+
 //fwrite($file, json_encode($post_data)."\n");
 
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
