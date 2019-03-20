@@ -11,19 +11,17 @@ $event = $json_obj->{"events"}[0];
 $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
-$Type=$event->{"type"};
+
 $reply_token = $event->{"replyToken"};
 $post_data = [
-	"replyToken" => $reply_token,
-	"type" => "follow",
-	"messages" => [
-		[
-			"type" => "text",
-			"text" => 'ok'
-		]
-	]
+  "replyToken" => $reply_token,
+  "messages" => [
+    [
+      "type" => "text",
+      "text" => $message
+    ]
+  ]
 ]; 
-
 //fwrite($file, json_encode($post_data)."\n");
 
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
