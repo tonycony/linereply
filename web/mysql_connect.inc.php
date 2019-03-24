@@ -4,7 +4,7 @@
 //資料庫位置
 $db_server = "54.156.124.2";
 //資料庫名稱
-$db_name = "linebot";
+$db_name = "esp8266";
 //資料庫管理者帳號
 $db_user = "case";
 //資料庫管理者密碼
