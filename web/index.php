@@ -3,7 +3,6 @@ include("mysql_connect.inc.php");
 //$sql="insert into user(user_id) values ('$user_id')";
 //mysqli_query($link,$sql);
 $access_token ='yWARnZrlhZ0gEqjA7h3kZEOIaaxTndaMIYdLh1kD/RQY0w10Jq9PH6mn5P0lKRBRsokFk7LfoUrOqii3yoERK9uldJLEEqQK0EtRHE3ug/5iNEGBkTi7+QJjIJALp2QUiC6FvMo6nkvDuU+lwsVxVgdB04t89/1O/w1cDnyilFU=';
-//define('TOKEN', '你的Channel Access Token');
 //$file = fopen("D:\\Line_log.txt", "a+");
 //fwrite($file, $json_string."\n"); 
 $sql="SELECT * FROM test3 ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
@@ -21,7 +20,7 @@ $type  = $event->{"message"}->{"type"};
 $replymessage = $event->{"message"}->{"text"};//抓取使用者輸入訊息判斷
 $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
-
+$post_data=[];//LINE 接收 jason
 switch ($replymessage)
 {
   case "@空氣品質":
@@ -50,9 +49,9 @@ switch ($replymessage)
       'Authorization: Bearer '.$access_token
       //'Authorization: Bearer '. TOKEN
   ));
-  $result = curl_exec($ch);
-  fwrite($file, $result."\n");  
-  fclose($file);
+  $resultfinal = curl_exec($ch);
+ //fwrite($file, $result."\n");  
+  //fclose($file);
   curl_close($ch); 
    
 ?>
