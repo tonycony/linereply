@@ -13,15 +13,17 @@ $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 
 $reply_token = $event->{"replyToken"};
-$post_data = [
-  "replyToken" => $reply_token,
-  "messages" => [
-    [
-      "type" => "text",
-      "text" => $message
-    ]
-  ]
-]; 
+if($message == '嗨'){
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => $message
+		]
+	  ]
+	];
+}
 //fwrite($file, json_encode($post_data)."\n");
 
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
