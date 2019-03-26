@@ -1,4 +1,5 @@
 <?php
+include("mysql_connect.inc.php");
 $access_token ='IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU=';
 //define('TOKEN', '你的Channel Access Token');
 
@@ -13,7 +14,9 @@ $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 
 $reply_token = $event->{"replyToken"};
-if($message == '嗨'){
+if($type == "text"){
+	$sql="insert into user(user_id, user_name) values ('$user_id', '$message')";
+	mysqli_query($link,$sql);
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
@@ -43,7 +46,7 @@ $result = curl_exec($ch);
 //fwrite($file, $result."\n");  
 //fclose($file);
 curl_close($ch); 
-include("mysql_connect.inc.php");
-$sql="insert into user(user_id, user_name) values ('$user_id', '$message')";
-mysqli_query($link,$sql);
+//include("mysql_connect.inc.php");
+//$sql="insert into user(user_id, user_name) values ('$user_id', '$message')";
+//mysqli_query($link,$sql);
 ?>
