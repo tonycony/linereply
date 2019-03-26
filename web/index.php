@@ -17,6 +17,8 @@ $reply_token = $event->{"replyToken"};
 if($type == "text"){
 	$sql="insert into user(user_id, user_name) values ('$user_id', '$message')";
 	mysqli_query($link,$sql);
+	if($message=="嗨")
+	{
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
@@ -27,6 +29,20 @@ if($type == "text"){
 		]
 	  ]
 	];
+	}
+	else 
+	{
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  //"text" => "你好 $message \n哈哈 $message" ,
+		  "text" =>  "幹"
+		]
+	  ]
+	];
+	}
 }
 //fwrite($file, json_encode($post_data)."\n");
 
