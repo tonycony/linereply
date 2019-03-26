@@ -18,13 +18,13 @@ if($type == "text"){
 	$sql="insert into user(user_id) values ('$user_id')";
 	mysqli_query($link,$sql);
 	
-	$sql9 = "SELECT * FROM user where user_id=$user_id";
+	$sql9 = "SELECT * FROM user where user_id= '$user_id'";
 	$result2 = mysqli_query($link,$sql9);
 	$row = mysqli_fetch_row($result2);
 	
 	if($row[1]==NULL)
 	{
-		$sql="UPDATE user set user_name=$message where user_id=$user_id";
+		$sql="UPDATE user set user_name='$message' where user_id='$user_id'";
 		mysqli_query($link,$sql);
 		$post_data = [
 		  "replyToken" => $reply_token,
