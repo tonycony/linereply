@@ -19,7 +19,7 @@ if($message == '嗨'){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => "你好  $message /n 耶",
+		  "text" => "你好  $message \n哈哈 $message" ,
 		]
 	  ]
 	];
