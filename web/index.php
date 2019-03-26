@@ -19,7 +19,8 @@ if($message == '嗨'){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => $message
+		  "text" => '你好' + $message
+		  "text" => '哈哈' + $message
 		]
 	  ]
 	];
