@@ -20,7 +20,6 @@ if($message == '嗨'){
 		[
 		  "type" => "text",
 		  "text" => '你好' + $message
-		  "text" => '哈哈' + $message
 		]
 	  ]
 	];
