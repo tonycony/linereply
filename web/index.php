@@ -15,18 +15,28 @@ $user_id  = $event->{"source"}->{"userId"};
 
 $reply_token = $event->{"replyToken"};
 if($type == "text"){
-	$sql="insert into user(user_id, user_name) values ('$user_id', '$message')";
+	$sql="insert into user(user_id) values ('$user_id')";
 	mysqli_query($link,$sql);
-	$post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
-		[
-		  "type" => "text",
-		  //"text" => "你好 $message \n哈哈 $message" ,
-		  "text" =>  "你好 $message"
-		]
-	  ]
-	];
+	
+	$sql9 = "SELECT * FROM user where user_id=$user_id";
+	$result2 = mysqli_query($link,$sql9);
+	$row = mysqli_fetch_row($result2);
+	
+	if($row[1]==NULL)
+	{
+		$sql="UPDATE user set user_name=$message where user_id=$user_id";
+		mysqli_query($link,$sql);
+		$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "text",
+			  //"text" => "你好 $message \n哈哈 $message" ,
+			  "text" =>  "你好 $message"
+			]
+		  ]
+		];
+	}
 }
 //fwrite($file, json_encode($post_data)."\n");
 
