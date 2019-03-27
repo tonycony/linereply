@@ -29,7 +29,7 @@ if($type == "text"){
 			[
 			  "type" => "text",
 			  //"text" => "你好 $message \n哈哈 $message" ,
-			  "text" =>  "你好 $message"
+			  "text" =>  "你好 $name"
 			]
 		  ]
 		];
