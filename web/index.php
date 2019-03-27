@@ -27,7 +27,7 @@ if($type == "text"){
 		  "replyToken" => $reply_token,
 		  "messages" => [
 			[
-			  "type" => "video",
+			  "type" => "text",
 			  //"text" => "你好 $message \n哈哈 $message" ,
 			  "text" =>  "你好 https://www.youtube.com/watch?v=S3J21jSKJ0M"
 			]
