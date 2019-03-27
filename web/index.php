@@ -20,7 +20,7 @@ if($type == "text"){
 	
 	if(substr($message,0,7)=="姓名:")
 	{
-		$name=substr($message,3);
+		$name=substr($message,7);
 		$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
 		mysqli_query($link,$sql);
 		$post_data = [
