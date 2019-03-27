@@ -27,9 +27,10 @@ if($type == "text"){
 		  "replyToken" => $reply_token,
 		  "messages" => [
 			[
-			  "type" => "text",
+			  "type" => "video",
 			  //"text" => "你好 $message \n哈哈 $message" ,
-			  "text" =>  "你好 $name"
+			  //"text" =>  "你好 $name"
+			  "originalContentUrl"=> "https://www.youtube.com/watch?v=mAKsZ26SabQ"
 			]
 		  ]
 		];
