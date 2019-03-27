@@ -17,6 +17,24 @@ $reply_token = $event->{"replyToken"};
 if($type == "text"){
 	$sql="insert into user(user_id) values ('$user_id')";
 	mysqli_query($link,$sql);
+	
+	$sql9 = "SELECT * FROM user where user_id= '$user_id'";
+	$result2 = mysqli_query($link,$sql9);
+	$row = mysqli_fetch_row($result2);
+	
+	if($row[1]==NULL)
+	{
+		$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "text",
+			  //"text" => "你好 $message \n哈哈 $message" ,
+			  "text" =>  "請先輸入您的姓名\n以利為您服務喔\n輸入格式為 (姓名：xxx)"
+			]
+		  ]
+		];
+	}
 	if(substr($message,0,9)=="姓名：")
 	{
 		$name=substr($message,9);
