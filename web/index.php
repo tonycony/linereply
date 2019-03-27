@@ -18,13 +18,14 @@ if($type == "text"){
 	$sql="insert into user(user_id) values ('$user_id')";
 	mysqli_query($link,$sql);
 	
-	$sql9 = "SELECT * FROM user where user_id= '$user_id'";
+	/*$sql9 = "SELECT * FROM user where user_id= '$user_id'";
 	$result2 = mysqli_query($link,$sql9);
-	$row = mysqli_fetch_row($result2);
+	$row = mysqli_fetch_row($result2);*/
 	
-	if($row[1]==NULL)
+	if(substr($message,0,3)=="姓名:")
 	{
-		$sql="UPDATE user set user_name='$message' where user_id='$user_id'";
+		$name=substr($message,3);
+		$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
 		mysqli_query($link,$sql);
 		$post_data = [
 		  "replyToken" => $reply_token,
