@@ -19,8 +19,8 @@ if($type == "text"){
 	mysqli_query($link,$sql);
 	if(substr($message,0,9)=="姓名：")
 	{
-		$name1=substr($message,9);
-		$sql="UPDATE user set user_name='$name1' where user_id='$user_id'";
+		$name=substr($message,9);
+		$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
 		mysqli_query($link,$sql);
 		$post_data = [
 		  "replyToken" => $reply_token,
@@ -33,7 +33,7 @@ if($type == "text"){
 		  ]
 		];
 	}
-	if(substr($message,0,7)=="姓名:" substr($message,0,9)=="姓名：")
+	if(substr($message,0,7)=="姓名:")
 	{
 		$name=substr($message,7);
 		$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
