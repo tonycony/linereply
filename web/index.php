@@ -18,11 +18,7 @@ if($type == "text"){
 	$sql="insert into user(user_id) values ('$user_id')";
 	mysqli_query($link,$sql);
 	
-	/*$sql9 = "SELECT * FROM user where user_id= '$user_id'";
-	$result2 = mysqli_query($link,$sql9);
-	$row = mysqli_fetch_row($result2);*/
-	
-	if(substr($message,0,3)=="姓名:")
+	if(substr($message,0,3)=="123:")
 	{
 		$name=substr($message,3);
 		$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
