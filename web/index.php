@@ -28,7 +28,7 @@ if($type == "text"){
 			[
 			  "type" => "text",
 			  //"text" => "你好 $message \n哈哈 $message" ,
-			  "text" =>  "你好 https://www.youtube.com/watch?v=S3J21jSKJ0M"
+			  "text" =>  "你好 $name"
 			]
 		  ]
 		];
@@ -44,7 +44,7 @@ if($type == "text"){
 			[
 			  "type" => "text",
 			  //"text" => "你好 $message \n哈哈 $message" ,
-			  "text" =>  "你好 https://www.youtube.com/watch?v=S3J21jSKJ0M"
+			  "text" =>  "你好 $name"
 			]
 		  ]
 		];
