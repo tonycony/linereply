@@ -29,9 +29,7 @@ if($type == "text"){
 			[
 			  "type" => "video",
 			  //"text" => "你好 $message \n哈哈 $message" ,
-			  //"text" =>  "你好 $name"
-			  "originalContentUrl" => "https://www.youtube.com/watch?v=S3J21jSKJ0M",
-			  "previewImageUrl" => "https://img.youtube.com/vi/S3J21jSKJ0M/maxresdefault.jpg"
+			  "text" =>  "你好 https://www.youtube.com/watch?v=S3J21jSKJ0M"
 			]
 		  ]
 		];
