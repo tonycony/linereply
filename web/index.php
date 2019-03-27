@@ -5,7 +5,7 @@ include("mysql_connect.inc.php");
 $access_token ='yWARnZrlhZ0gEqjA7h3kZEOIaaxTndaMIYdLh1kD/RQY0w10Jq9PH6mn5P0lKRBRsokFk7LfoUrOqii3yoERK9uldJLEEqQK0EtRHE3ug/5iNEGBkTi7+QJjIJALp2QUiC6FvMo6nkvDuU+lwsVxVgdB04t89/1O/w1cDnyilFU=';
 //$file = fopen("D:\\Line_log.txt", "a+");
 //fwrite($file, $json_string."\n"); 
-$sql="SELECT * FROM test3 ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
+$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
 $result=mysqli_query($link,$sql);
 $row = mysqli_fetch_array($result);
 $message='現在的溫度是'.(string)$row['Temperature']."°C\n"
