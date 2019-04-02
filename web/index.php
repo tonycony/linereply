@@ -99,7 +99,7 @@ if($type == "text"){
 				[
 				  "type" => "text",
 				  //"text" => "你好 $message \n哈哈 $message" ,
-				  "text" =>  "姓名格式輸入錯誤喔 格式為:姓名@xxx"
+				  "text" =>  "$row['user_name']"//"姓名格式輸入錯誤喔 格式為:姓名@xxx"
 				]
 			  ]
 			];
