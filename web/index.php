@@ -48,7 +48,7 @@ if($type == "text"){
 		  "messages" => [
 			[
 			  "type" => "text",
-			  "text" =>  "你好 $name+$emoticon"
+			  "text" =>  "你好 $name $emoticon"
 			]
 		  ]
 		];
