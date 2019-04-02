@@ -73,7 +73,7 @@ if($type == "text"){
 		}
 		
 	}*/
-	if($row['user_name']=="")
+	if($row[1]=="")
 	{
 		if(substr($message,0,7)=="姓名@")
 		{
