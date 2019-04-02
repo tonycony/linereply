@@ -105,7 +105,33 @@ if($type == "text"){
 		}
 		
 	}
-	
+	else
+	{
+		switch ($message)
+		{
+			
+			  case "@空氣品質":
+				$sql="SELECT * FROM test3 ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
+				$result=mysqli_query($link,$sql);
+				$row = mysqli_fetch_array($result);
+				$message='現在的溫度是'.(string)$row['Temperature']."°C\n"
+				.'濕度是'.(string)$row['Humidity']."%\n"
+				.'Co濃度是'.(string)$row['Co']."%\n"
+				.'PM2.5是'.(string)$row['PM25'];//回傳給使用者之資訊 \n要用""
+				$post_data = [
+				  "replyToken" => $reply_token,
+				  "messages" => [
+					[
+					  "type" => "text",
+					  "text" => $message
+					]
+				  ]
+				]; 
+				push($post_data,$access_token);
+				break;
+
+		} 
+	}
 }
 
 
