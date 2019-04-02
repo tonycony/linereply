@@ -34,7 +34,7 @@ if($type == "text"){
 	$sql="insert into user(user_id) values ('$user_id')";
 	mysqli_query($link,$sql);
 	
-	$sql9 = "SELECT * FROM user where user_id= '$user_id'";
+	$sql9 = "SELECT * FROM user where user_id = '$user_id'";
 	$result2 = mysqli_query($link,$sql9);
 	$row = mysqli_fetch_row($result2);
 	/*if($row['user_id']==NULL)
@@ -99,7 +99,7 @@ if($type == "text"){
 				[
 				  "type" => "text",
 				  //"text" => "你好 $message \n哈哈 $message" ,
-				  "text" =>  "$row['user_name']"//"姓名格式輸入錯誤喔 格式為:姓名@xxx"
+				  "text" =>  "姓名格式輸入錯誤喔 格式為:姓名@xxx"
 				]
 			  ]
 			];
