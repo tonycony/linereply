@@ -113,7 +113,7 @@ if($type == "text"){
 		{
 			
 			  case "@空氣品質":
-				$sql="SELECT * FROM test3 ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
+				$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
 				$result=mysqli_query($link,$sql);
 				$row = mysqli_fetch_array($result);
 				$replymessage='現在的溫度是'.(string)$row['Temperature']."°C\n"
