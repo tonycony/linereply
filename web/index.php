@@ -13,9 +13,9 @@ $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 
-/*$code = '100058';
+$code = '100058';
 $bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
-$emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');*/
+$emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
 
 $reply_token = $event->{"replyToken"};
 if($type == "text"){
