@@ -36,7 +36,7 @@ if($type == "text"){
 	
 	$sql9 = "SELECT * FROM user where user_id = '$user_id'";
 	$result2 = mysqli_query($link,$sql9);
-	$row = mysqli_fetch_array($result2);
+	$row = mysqli_fetch_row($result2);
 	/*if($row['user_id']==NULL)
 	{
 		$sql="insert into user(user_id) values ('$user_id')";
