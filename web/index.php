@@ -13,6 +13,10 @@ $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 
+$code = '100058';
+$bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
+$emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
+
 $reply_token = $event->{"replyToken"};
 if($type == "text"){
 	$sql="insert into user(user_id) values ('$user_id')";
@@ -29,7 +33,6 @@ if($type == "text"){
 		  "messages" => [
 			[
 			  "type" => "text",
-			  //"text" => "你好 $message \n哈哈 $message" ,
 			  "text" =>  "請先輸入您的姓名\n以利為您服務喔\n輸入格式為 (姓名：xxx)"
 			]
 		  ]
@@ -45,8 +48,7 @@ if($type == "text"){
 		  "messages" => [
 			[
 			  "type" => "text",
-			  //"text" => "你好 $message \n哈哈 $message" ,
-			  "text" =>  "你好 $name"
+			  "text" =>  "你好 $name+$emoticon"
 			]
 		  ]
 		];
