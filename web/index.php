@@ -1,5 +1,5 @@
 <?php
-function push()
+function push($post_data,$access_token)
 {
 	//fwrite($file, json_encode($post_data)."\n");
 	$ch = curl_init("https://api.line.me/v2/bot/message/reply");
@@ -53,7 +53,7 @@ if($type == "text"){
 				]
 			  ]
 			];
-			push();
+			push($post_data,$access_token);
 		}
 		else
 		{
@@ -67,7 +67,7 @@ if($type == "text"){
 				]
 			  ]
 			];
-			push();
+			push($post_data,$access_token);
 		}
 		
 	}
@@ -87,7 +87,7 @@ if($type == "text"){
 				]
 			  ]
 			];
-			push();
+			push($post_data,$access_token);
 		}
 		else
 		{
@@ -101,7 +101,7 @@ if($type == "text"){
 				]
 			  ]
 			];
-			push();
+			push($post_data,$access_token);
 		}
 		
 	}
