@@ -41,27 +41,14 @@ if($type == "text"){
 	if(substr($message,0,9)=="姓名：")
 	{
 		$name=substr($message,9);
+		$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
+		mysqli_query($link,$sql);
 		$post_data = [
 		  "replyToken" => $reply_token,
 		  "messages" => [
 			[
-				"type": "template",
-				"template": {
-					"type": "confirm",
-						"actions": [
-							{
-								"type": "message",
-								"label": "是",
-								"text": "是"
-							},
-							{
-								"type": "message",
-								"label": "否",
-								"text": "否"
-							}
-						],
-					"text": "您要將$name設為姓名嗎?"
-				}
+			  "type" => "text",
+			  "text" =>  "你好 $name"
 			]
 		  ]
 		];	
