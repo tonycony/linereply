@@ -47,8 +47,24 @@ if($type == "text"){
 		  "replyToken" => $reply_token,
 		  "messages" => [
 			[
-			  "type" => "text",
-			  "text" =>  "你好 $name"
+			  "type": "template",
+			  "altText": "this is a confirm template",
+			  "template": {
+				"type": "confirm",
+				"actions": [
+				  {
+					"type": "message",
+					"label": "是",
+					"text": "是"
+				  },
+				  {
+					"type": "message",
+					"label": "否",
+					"text": "否"
+				  }
+				],
+				"text": "您確定嗎？"
+			  }
 			]
 		  ]
 		];	
