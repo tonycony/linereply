@@ -68,6 +68,7 @@ if($type == "text"){
 				)
 			)
 		];
+		$message = $event->{"template"}->{"actions"}->{"text"};
 		if($message=="Yes"){
 			$post_data = [
 			  "replyToken" => $reply_token,
