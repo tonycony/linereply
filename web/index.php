@@ -45,12 +45,29 @@ if($type == "text"){
 		mysqli_query($link,$sql);
 		$post_data = [
 		  "replyToken" => $reply_token,
-		  "messages" => [
-			[
-			  "type" => "text",
-			  "text" =>  "你好 $name"
-			]
-		  ]
+		  'messages' => array(
+            array(
+                'type' => 'template', // 訊息類型 (模板)
+                'altText' => 'Example confirm template', // 替代文字
+                'template' => array(
+                    'type' => 'confirm', // 類型 (確認)
+                    'text' => 'Are you sure?', // 文字
+                    'actions' => array(
+                        array(
+                            'type' => 'message', // 類型 (訊息)
+                            'label' => 'Yes', // 標籤 1
+                            'text' => 'Yes' // 用戶發送文字 1
+                        ),
+                        array(
+                            'type' => 'message', // 類型 (訊息)
+                            'label' => 'No', // 標籤 2
+                            'text' => 'No' // 用戶發送文字 2
+                        )
+                    )
+                )
+            )
+        )
+    ));
 		];	
 	}
 	if(substr($message,0,7)=="姓名:")
