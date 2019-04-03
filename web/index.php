@@ -46,6 +46,7 @@ if($type == "text"){
 		  "messages" => [
 			[
 				"type": "template",
+				"altText": "this is a confirm template",
 				"template": {
 					"type": "confirm",
 						"actions": [
@@ -78,7 +79,7 @@ if($type == "text"){
 				]
 			];
 		}
-		if($message=="否"){
+		else if($message=="否"){
 			$post_data = [
 				"replyToken" => $reply_token,
 				"messages" => [
@@ -98,6 +99,7 @@ if($type == "text"){
 		  "messages" => [
 			[
 				"type": "template",
+				"altText": "this is a confirm template",
 				"template": {
 					"type": "confirm",
 						"actions": [
@@ -130,7 +132,7 @@ if($type == "text"){
 				]
 			];
 		}
-		if($message=="否"){
+		else if($message=="否"){
 			$post_data = [
 			  "replyToken" => $reply_token,
 			  "messages" => [
