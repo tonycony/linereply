@@ -68,15 +68,13 @@ if($type == "text"){
 				)
 			)
 		];
-		$message1 = $event->{"template"}->{"actions"}->{"text"};
-		if($message1=="Yes"){
-			$name=substr($message,9);
+		if($actions['text']=="Yes"){
 			$post_data = [
 			  "replyToken" => $reply_token,
 			  "messages" => [
 				[
 				  "type" => "text",
-				  "text" =>  "你好 $name"
+				  "text" =>  "你好"
 				]
 			  ]
 			];
