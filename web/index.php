@@ -25,7 +25,17 @@ if($type == "text"){
 	$sql9 = "SELECT * FROM user where user_id= '$user_id'";
 	$result2 = mysqli_query($link,$sql9);
 	$row = mysqli_fetch_row($result2);
-	
+	if($message=="Yes"){
+		$post_data = [
+			"replyToken" => $reply_token,
+			"messages" => [
+				[
+					"type" => "text",
+					"text" =>  "你好"
+				]
+			]
+		];
+	}
 	if($row[1]==NULL)
 	{
 		$post_data = [
@@ -68,18 +78,6 @@ if($type == "text"){
 				)
 			)
 		];
-		$message = $event->{"template"}->{"actions"}->{"text"};
-		if($message=="Yes"){
-			$post_data = [
-			  "replyToken" => $reply_token,
-			  "messages" => [
-				[
-				  "type" => "text",
-				  "text" =>  "你好"
-				]
-			  ]
-			];
-		}
 	}
 	if(substr($message,0,7)=="姓名:")
 	{
