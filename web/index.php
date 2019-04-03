@@ -15,7 +15,7 @@ $user_id  = $event->{"source"}->{"userId"};
 
 $code = '100058';
 $bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
-//$emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
+$emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');
 
 $reply_token = $event->{"replyToken"};
 if($type == "text"){
@@ -46,7 +46,6 @@ if($type == "text"){
 		  "messages" => [
 			[
 				"type": "template",
-				"altText": "this is a confirm template",
 				"template": {
 					"type": "confirm",
 						"actions": [
@@ -65,84 +64,22 @@ if($type == "text"){
 				}
 			]
 		  ]
-		];
-		if($message=="是"){
-			$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
-			mysqli_query($link,$sql);
-			$post_data = [
-				"replyToken" => $reply_token,
-				"messages" => [
-					[
-						"type" => "text",
-						"text" =>  "你好 $name"
-					]
-				]
-			];
-		}
-		else if($message=="否"){
-			$post_data = [
-				"replyToken" => $reply_token,
-				"messages" => [
-					[
-						"type" => "text",
-						"text" =>  "請先輸入您的姓名\n以利為您服務喔\n輸入格式為 (姓名：xxx)"
-					]
-				]
-			];	
-		}
+		];	
 	}
 	if(substr($message,0,7)=="姓名:")
 	{
 		$name=substr($message,7);
+		$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
+		mysqli_query($link,$sql);
 		$post_data = [
 		  "replyToken" => $reply_token,
 		  "messages" => [
 			[
-				"type": "template",
-				"altText": "this is a confirm template",
-				"template": {
-					"type": "confirm",
-						"actions": [
-							{
-								"type": "message",
-								"label": "是",
-								"text": "是"
-							},
-							{
-								"type": "message",
-								"label": "否",
-								"text": "否"
-							}
-						],
-					"text": "您要將$name設為姓名嗎?"
-				}
+			  "type" => "text",
+			  "text" =>  "你好 $name"
 			]
 		  ]
 		];
-		if($message=="是"){
-			$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
-			mysqli_query($link,$sql);
-			$post_data = [
-				"replyToken" => $reply_token,
-				"messages" => [
-					[
-						"type" => "text",
-						"text" =>  "你好 $name"
-					]
-				]
-			];
-		}
-		else if($message=="否"){
-			$post_data = [
-			  "replyToken" => $reply_token,
-			  "messages" => [
-					[
-						"type" => "text",
-						"text" =>  "請先輸入您的姓名\n以利為您服務喔\n輸入格式為 (姓名：xxx)"
-					]
-				]
-			];	
-		}
 	}
 }
 //fwrite($file, json_encode($post_data)."\n");
