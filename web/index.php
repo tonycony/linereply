@@ -49,7 +49,7 @@ if($type == "text"){
 			[
 			  "type"=> "template",
 			  "altText"=> "this is a confirm template",
-			  "template"=> [
+			  "template": {
 				"type"=> "confirm",
 				"actions"=> [
 				  {
@@ -64,7 +64,7 @@ if($type == "text"){
 				  }
 				],
 				"text"=> "您確定嗎？"
-			  ]
+			  }
 			]
 		  ]
 		];	
