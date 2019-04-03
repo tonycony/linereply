@@ -67,7 +67,19 @@ if($type == "text"){
 					)
 				)
 			)
-		];	
+		];
+		$message = $event->{"template"}->{"actions"}->{"text"};
+		if($message=="Yes"){
+			$post_data = [
+			  "replyToken" => $reply_token,
+			  "messages" => [
+				[
+				  "type" => "text",
+				  "text" =>  "你好 $name"
+				]
+			  ]
+			];
+		}
 	}
 	if(substr($message,0,7)=="姓名:")
 	{
