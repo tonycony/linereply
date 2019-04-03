@@ -68,7 +68,7 @@ if($type == "text"){
 				)
 			)
 		];
-		if($actions['text']=="Yes"){
+		if($message=="Yes"){
 			$post_data = [
 			  "replyToken" => $reply_token,
 			  "messages" => [
