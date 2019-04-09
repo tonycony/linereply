@@ -131,7 +131,21 @@ if($type == "text"){
 				]; 
 				push($post_data,$access_token);
 				break;
-
+			  case "@關閉提醒":
+				$sql="UPDATE close_reminder set reminder=0 where index=1";//選擇最新的空氣資訊
+				$result=mysqli_query($link,$sql);
+				$replymessage='已關閉提醒5分鐘';//回傳給使用者之資訊 \n要用""
+				$post_data = [
+				  "replyToken" => $reply_token,
+				  "messages" => [
+					[
+					  "type" => "text",
+					  "text" => $replymessage
+					]
+				  ]
+				]; 
+				push($post_data,$access_token);
+				break;
 		} 
 	}
 }
