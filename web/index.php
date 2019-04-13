@@ -37,43 +37,8 @@ if($type == "text"){
 	$sql9 = "SELECT * FROM user where user_id = '$user_id'";
 	$result2 = mysqli_query($link,$sql9);
 	$row = mysqli_fetch_array($result2);
-	/*if($row['user_id']==NULL)
-	{
-		$sql="insert into user(user_id) values ('$user_id')";
-		mysqli_query($link,$sql);
-		if(substr($message,0,7)=="姓名@")
-		{
-			$name=substr($message,7);
-			$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
-			mysqli_query($link,$sql);
-			$post_data = [
-			  "replyToken" => $reply_token,
-			  "messages" => [
-				[
-				  "type" => "text",
-				  "text" =>  "你好 $name  "."你可以使用其他功能了"
-				]
-			  ]
-			];
-			push($post_data,$access_token);
-		}
-		else
-		{
-			$post_data = [
-			  "replyToken" => $reply_token,
-			  "messages" => [
-				[
-				  "type" => "text",
-				  //"text" => "你好 $message \n哈哈 $message" ,
-				  "text" =>  "姓名格式輸入錯誤 格式為:姓名@xxx"
-				]
-			  ]
-			];
-			push($post_data,$access_token);
-		}
-		
-	}*/
-	if($row['user_name']=="")
+	
+	if($row['user_name']==NULL)
 	{
 		if(substr($message,0,7)=="姓名@")
 		{
