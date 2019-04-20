@@ -82,6 +82,21 @@ if($type == "text"){
 		  ]
 		];
 	}
+	if($message=="重新計數")
+	{
+		$sql=="SELECT count from Cleaning_count where area='A'";
+		
+		$row =mysqli_fetch_array(mysqli_query($link,$sql));
+		$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "text",
+			  "text" =>  "現已進入 $row[0] 人"
+			]
+		  ]
+		];
+	}
 }
 //fwrite($file, json_encode($post_data)."\n");
 
