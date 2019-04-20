@@ -69,7 +69,7 @@ if($type == "text"){
 	}
 	if($message=="查詢廁所已使用人數")
 	{
-		$sql=="SELECT count from Cleaning_count where area='A'";
+		$sql=="SELECT count from Cleaning_count where area=A";
 		
 		$row =mysqli_fetch_array(mysqli_query($link,$sql));
 		$post_data = [
@@ -92,7 +92,7 @@ if($type == "text"){
 		  "messages" => [
 			[
 			  "type" => "text",
-			  "text" =>  "現已進入 $row[0] 人"
+			  "text" =>  "已重新計數"
 			]
 		  ]
 		];
