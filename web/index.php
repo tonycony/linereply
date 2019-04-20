@@ -67,6 +67,20 @@ if($type == "text"){
 		  ]
 		];
 	}
+	if($message=="查詢廁所已使用人數")
+	{
+		$sql=="SELECT count from cleaning_count where area='A'";
+		mysqli_query($link,$sql);
+		$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "text",
+			  "text" =>  "現已進入$sql人"
+			]
+		  ]
+		];
+	}
 }
 //fwrite($file, json_encode($post_data)."\n");
 
