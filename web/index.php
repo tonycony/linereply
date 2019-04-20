@@ -70,14 +70,14 @@ if($type == "text"){
 	if($message=="查詢廁所已使用人數")
 	{
 		$sql=="SELECT count FROM Cleaning_count where area='A'";
-		
-		$row =mysqli_fetch_row(mysqli_query($link,$sql));
+		$result=mysqli_query($link,$sql);
+		$row =mysqli_fetch_array($result);
 		$post_data = [
 		  "replyToken" => $reply_token,
 		  "messages" => [
 			[
 			  "type" => "text",
-			  "text" => "現已進入 $row 人"
+			  "text" => "現已進入".$row[0]"人"
 			]
 		  ]
 		];
