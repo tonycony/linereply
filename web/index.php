@@ -84,7 +84,7 @@ if($type == "text"){
 	}
 	if($message=="重新計數")
 	{
-		$sql=="SELECT count from Cleaning_count where area='A'";
+		$sql=="SELECT count from Cleaning_count where area=A";
 		
 		$row =mysqli_fetch_array(mysqli_query($link,$sql));
 		$post_data = [
