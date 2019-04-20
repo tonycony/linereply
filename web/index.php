@@ -77,7 +77,7 @@ if($type == "text"){
 		  "messages" => [
 			[
 			  "type" => "text",
-			  "text" =>  "現已進入+$row[0]+人"
+			  "text" =>  "現已進入 $row[0] 人"
 			]
 		  ]
 		];
