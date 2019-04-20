@@ -69,7 +69,7 @@ if($type == "text"){
 	}
 	if($message=="查詢廁所已使用人數")
 	{
-		$sql=="SELECT count FROM Cleaning_count where area='A'";
+		$sql="SELECT count FROM Cleaning_count where area='A'";
 		$result=mysqli_query($link,$sql);
 		$row =mysqli_fetch_array($result);
 	
