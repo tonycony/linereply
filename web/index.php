@@ -19,10 +19,10 @@ $emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');*/
 
 $reply_token = $event->{"replyToken"};
 if($type == "text"){
-	$sql="insert into user(user_id) values ('$user_id')";
+	$sql="insert into Cleaning_staff(user_id) values ('$user_id')";
 	mysqli_query($link,$sql);
 	
-	$sql9 = "SELECT * FROM user where user_id= '$user_id'";
+	$sql9 = "SELECT * FROM Cleaning_staff where user_id= '$user_id'";
 	$result2 = mysqli_query($link,$sql9);
 	$row = mysqli_fetch_row($result2);
 	if($row[1]==NULL)
@@ -40,7 +40,7 @@ if($type == "text"){
 	if(substr($message,0,9)=="姓名：")
 	{
 		$name=substr($message,9);
-		$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
+		$sql="UPDATE Cleaning_staff set user_name='$name' where user_id='$user_id'";
 		mysqli_query($link,$sql);
 		$post_data = [
 		  "replyToken" => $reply_token,
@@ -55,7 +55,7 @@ if($type == "text"){
 	if(substr($message,0,7)=="姓名:")
 	{
 		$name=substr($message,7);
-		$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
+		$sql="UPDATE Cleaning_staff set user_name='$name' where user_id='$user_id'";
 		mysqli_query($link,$sql);
 		$post_data = [
 		  "replyToken" => $reply_token,
