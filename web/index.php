@@ -84,9 +84,9 @@ if($type == "text"){
 	}
 	if($message=="重新計數")
 	{
-		$sql=="SELECT count FROM Cleaning_count where area=A";
+		$sql="UPDATE Cleaning_count set count=0 where area='A'";
+		mysqli_query($link,$sql);
 		
-		$row =mysqli_fetch_array(mysqli_query($link,$sql));
 		$post_data = [
 		  "replyToken" => $reply_token,
 		  "messages" => [
