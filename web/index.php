@@ -72,7 +72,7 @@ if($type == "text"){
 		$sql=="SELECT count FROM Cleaning_count where area='A'";
 		$result=mysqli_query($link,$sql);
 		$row =mysqli_fetch_array($result);
-		$row=2;
+		$row[0]=2;
 		$post_data = [
 		  "replyToken" => $reply_token,
 		  "messages" => [
