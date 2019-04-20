@@ -76,7 +76,7 @@ if($type == "text"){
 		  "messages" => [
 			[
 			  "type" => "text",
-			  "text" =>  "現已進入$sql人"
+			  "text" =>  "現已進入"+$sql+"人"
 			]
 		  ]
 		];
