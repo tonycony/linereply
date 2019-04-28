@@ -84,7 +84,7 @@ if($type == "text"){
 				$replymessage='現在的溫度是'.(string)$row['Temperature']."°C\n"
 				.'濕度是'.(string)$row['Humidity']."%\n"
 				.'Co濃度是'.(string)$row['Co']."\n"
-				.'Co濃度是'.(string)$row['Co2']."PPM\n"	
+				.'Co2濃度是'.(string)$row['Co2']."PPM\n"	
 				.'PM2.5是'.(string)$row['PM25'];//回傳給使用者之資訊 \n要用""
 				$post_data = [
 				  "replyToken" => $reply_token,
