@@ -3,11 +3,16 @@ include("mysql_connect.inc.php");
 $access_token ='IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU=';
 //define('TOKEN', '你的Channel Access Token');
 $json_string = file_get_contents('php://input');
+//$file = fopen("D:\\Line_log.txt", "a+");
+//fwrite($file, $json_string."\n"); 
 $json_obj = json_decode($json_string);
 $event = $json_obj->{"events"}[0];
 $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
+/*$code = '100058';
+$bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
+$emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');*/
 $reply_token = $event->{"replyToken"};
 if($type == "text"){
 	$sql="insert into Cleaning_staff(user_id) values ('$user_id')";
@@ -90,6 +95,7 @@ if($type == "text"){
 		];
 	}
 }
+//fwrite($file, json_encode($post_data)."\n");
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -103,5 +109,10 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     //'Authorization: Bearer '. TOKEN
 ));
 $result = curl_exec($ch);
+//fwrite($file, $result."\n");  
+//fclose($file);
 curl_close($ch); 
+//include("mysql_connect.inc.php");
+//$sql="insert into user(user_id, user_name) values ('$user_id', '$message')";
+//mysqli_query($link,$sql);
 ?>
