@@ -95,7 +95,7 @@ if($type == "text"){
 		];
 	}
 }
-else if(('beacon' == $event->type){
+else if('beacon' == $event->type){
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
