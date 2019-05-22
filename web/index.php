@@ -95,6 +95,17 @@ if($type == "text"){
 		];
 	}
 }
+else if(('beacon' == $event->type){
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" =>  "Beacon"
+		]
+	  ]
+	];
+}
 //fwrite($file, json_encode($post_data)."\n");
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
