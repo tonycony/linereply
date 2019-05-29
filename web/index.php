@@ -95,7 +95,7 @@ if($type == "text"){
 		];
 	}
 }
-else if('beacon' == $event->type){
+if('beacon' == $event->type){
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
@@ -105,17 +105,17 @@ else if('beacon' == $event->type){
 		]
 	  ]
 	];
-	if($event->beacon->hwid=='0129d91ed3' && $event->beacon->type=='enter'){
-		$post_data = [
-		  "replyToken" => $reply_token,
-		  "messages" => [
-			[
-			  "type" => "text",
-			  "text" =>  "Enter"
-			]
-		  ]
-		];
-	}
+}
+if($event->beacon->hwid=='0129d91ed3' && $event->beacon->type=='enter'){
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" =>  "Enter"
+		]
+	  ]
+	];
 }
 //fwrite($file, json_encode($post_data)."\n");
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
