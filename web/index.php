@@ -95,13 +95,13 @@ if($type == "text"){
 		];
 	}
 }
-if('beacon' == $event->type){
+if('0129d91ed' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" =>  "Beacon"
+		  "text" =>  "Enter"
 		]
 	  ]
 	];
