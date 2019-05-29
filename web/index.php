@@ -97,9 +97,9 @@ if($type == "text"){
 }
 if('0129d91ed3' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql9 = "SELECT * FROM Cleaning_staff where user_id= '$user_id'";
-	$result2 = mysqli_query($link,$sql9);
-	$row = mysqli_fetch_row($result2);
-	$sql8="UPDATE * FROM Cleaning_staff set area='A' WHERE user_id = '$row'";
+	mysqli_query($link,$sql9);
+	$sql8="UPDATE Cleaning_staff set area='A' WHERE user_id = '$user_id'";
+	mysqli_query($link,$sql8);
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
