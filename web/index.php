@@ -96,10 +96,10 @@ if($type == "text"){
 	}
 }
 if('0129d91ed3' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	$sql="insert into Cleaning_staff(user_id) values ('$user_id')";
-	mysqli_query($link,$sql);
-	$sql2="insert into Cleaning_staff(area) values ('A')";
-	mysqli_query($link,$sql2);
+	$sql9 = "SELECT * FROM Cleaning_staff where user_id= '$user_id'";
+	$result2 = mysqli_query($link,$sql9);
+	$row = mysqli_fetch_row($result2);
+	$sql8="UPDATE * FROM Cleaning_staff set area='A' WHERE user_id = '$row'";
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
