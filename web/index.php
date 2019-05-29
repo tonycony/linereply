@@ -96,6 +96,10 @@ if($type == "text"){
 	}
 }
 if('0129d91ed3' == $event->beacon->hwid && 'enter'==$event->beacon->type){
+	$sql="insert into Cleaning_staff(user_id) values ('$user_id')";
+	mysqli_query($link,$sql);
+	$sql2="insert into Cleaning_staff(area) values ('A')";
+	mysqli_query($link,$sql2);
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
