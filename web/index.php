@@ -101,7 +101,7 @@ if('0129d91ed3' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" =>  "Enter"
+		  "text" =>  "leave"
 		]
 	  ]
 	];
