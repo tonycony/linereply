@@ -34,7 +34,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" =>  "，你已經進入A區"
+		  "text" =>  "你已經進入A區"
 		]
 	  ]
 	];
