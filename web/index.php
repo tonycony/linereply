@@ -40,6 +40,20 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	];
 	push($post_data,$access_token);
 }
+else if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
+	$sql8="UPDATE user set area='B' WHERE user_id = '$user_id'";
+	mysqli_query($link,$sql8);
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" =>  "你已經進入B區"
+		]
+	  ]
+	];
+	push($post_data,$access_token);
+}
 if($type == "text"){
 	
 	$sql="insert into user(user_id) values ('$user_id')";
