@@ -26,8 +26,10 @@ $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
+$area='A';
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
+	$area='A';
 	mysqli_query($link,$sql8);
 	$post_data = [
 	  "replyToken" => $reply_token,
@@ -42,6 +44,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 }
 else if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql8="UPDATE user set area='B' WHERE user_id = '$user_id'";
+	$area='B';
 	mysqli_query($link,$sql8);
 	$post_data = [
 	  "replyToken" => $reply_token,
@@ -103,14 +106,34 @@ if($type == "text"){
 		{
 			
 			  case "@空氣品質":
-				$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
-				$result=mysqli_query($link,$sql);
-				$row = mysqli_fetch_array($result);
-				$replymessage='現在的溫度是'.(string)$row['Temperature']."°C\n"
-				.'濕度是'.(string)$row['Humidity']."%\n"
-				.'Co濃度是'.(string)$row['Co']."\n"
-				.'Co2濃度是'.(string)$row['Co2']."PPM\n"	
-				.'PM2.5是'.(string)$row['PM25'];//回傳給使用者之資訊 \n要用""
+				switch ($area)
+				{
+					case "A":
+						$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
+						$result=mysqli_query($link,$sql);
+						$row = mysqli_fetch_array($result);
+						$replymessage='現在的溫度是'.(string)$row['Temperature']."°C\n"
+						.'濕度是'.(string)$row['Humidity']."%\n"
+						.'Co濃度是'.(string)$row['Co']."\n"
+						.'Co2濃度是'.(string)$row['Co2']."PPM\n"	
+						.'PM2.5是'.(string)$row['PM25'];//回傳給使用者之資訊 \n要用""
+						break;
+					case "B":
+						$sql="SELECT * FROM b_air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
+						$result=mysqli_query($link,$sql);
+						$row = mysqli_fetch_array($result);
+						$replymessage='現在的溫度是'.(string)$row['Temperature']."°C\n"
+						.'濕度是'.(string)$row['Humidity']."%\n"
+						.'Co濃度是'.(string)$row['Co'];//回傳給使用者之資訊 \n要用""
+						break;
+					case "C":
+						$sql="SELECT * FROM c_air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
+						$result=mysqli_query($link,$sql);
+						$row = mysqli_fetch_array($result);
+						break;
+					
+				}
+				
 				$post_data = [
 				  "replyToken" => $reply_token,
 				  "messages" => [
