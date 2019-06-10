@@ -103,7 +103,20 @@ if('0129d91ed3' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" =>  "enter"
+		  "text" =>  "B"
+		]
+	  ]
+	];
+}
+if('012b6d830b' == $event->beacon->hwid && 'enter'==$event->beacon->type){
+	$sql8="UPDATE Cleaning_staff set area='A' WHERE user_id = '$user_id'";
+	mysqli_query($link,$sql8);
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" =>  "A"
 		]
 	  ]
 	];
