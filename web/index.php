@@ -26,10 +26,9 @@ $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
-$area='A';
+
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
-	$area='A';
 	mysqli_query($link,$sql8);
 	$post_data = [
 	  "replyToken" => $reply_token,
@@ -44,7 +43,6 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 }
 else if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql8="UPDATE user set area='B' WHERE user_id = '$user_id'";
-	$area='B';
 	mysqli_query($link,$sql8);
 	$post_data = [
 	  "replyToken" => $reply_token,
