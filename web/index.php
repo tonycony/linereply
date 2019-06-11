@@ -65,7 +65,9 @@ if($type == "text"){
 	$sql9 = "SELECT * FROM user where user_id = '$user_id'";
 	$result2 = mysqli_query($link,$sql9);
 	$row = mysqli_fetch_array($result2);
-	
+	$sql4 = "SELECT * FROM user where user_id = '$user_id' and area='$area'";
+	$result4 = mysqli_query($link,$sql4);
+	$row4 = mysqli_fetch_array($result4);
 	if($row['user_name']==NULL)
 	{
 		if(substr($message,0,7)=="姓名@")
@@ -106,7 +108,7 @@ if($type == "text"){
 		{
 			
 			  case "@空氣品質":
-				switch ($area)
+				switch ($row4)
 				{
 					case "A":
 						$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
