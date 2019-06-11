@@ -65,8 +65,7 @@ if($type == "text"){
 	$sql9 = "SELECT * FROM user where user_id = '$user_id'";
 	$result2 = mysqli_query($link,$sql9);
 	$row = mysqli_fetch_array($result2);
-	$sql4 = "SELECT * FROM user where user_id = '$user_id' and area='$area'";
-	mysqli_query($link,$sql4);
+	
 	if($row['user_name']==NULL)
 	{
 		if(substr($message,0,7)=="姓名@")
@@ -105,7 +104,9 @@ if($type == "text"){
 	{
 		switch ($message)
 		{
-			
+			  $sql4 = "SELECT * FROM user where user_id = '$user_id' and area='B'";
+			  $result2 = mysqli_query($link,$sql4);
+			  $area = mysqli_fetch_array($result2);
 			  case "@空氣品質":
 				switch ($area)
 				{
