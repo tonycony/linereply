@@ -30,15 +30,14 @@ $reply_token = $event->{"replyToken"};
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
 	mysqli_query($link,$sql8);
-	$post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
-		[
-		  "type" => "text",
-		  "text" =>  "你已經進入A區"
-		]
-	  ]
-	];
+	$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
+	$result=mysqli_query($link,$sql);
+	$row = mysqli_fetch_array($result);
+	$replymessage='A區 現在的溫度是'.(string)$row['Temperature']."°C\n"
+	.'濕度是'.(string)$row['Humidity']."%\n"
+	.'Co濃度是'.(string)$row['Co']."\n"
+	.'Co2濃度是'.(string)$row['Co2']."PPM\n"	
+	.'PM2.5是'.(string)$row['PM25'];//回傳給使用者之資訊 \n要用""
 	push($post_data,$access_token);
 }
 else if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
