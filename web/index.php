@@ -33,7 +33,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
 	$result=mysqli_query($link,$sql);
 	$row = mysqli_fetch_array($result);
-	$replymessage='歡迎來到A區'."\n"'提供您空氣品質資訊溫度是'.(string)$row['Temperature']."°C\n"
+	$replymessage='歡迎來到A區 溫度'.(string)$row['Temperature']."°C\n"
 	.'濕度是'.(string)$row['Humidity']."%\n"
 	.'Co濃度是'.(string)$row['Co']."\n"
 	.'Co2濃度是'.(string)$row['Co2']."PPM\n"	
