@@ -38,6 +38,15 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	.'Co濃度是'.(string)$row['Co']."\n"
 	.'Co2濃度是'.(string)$row['Co2']."PPM\n"	
 	.'PM2.5是'.(string)$row['PM25'];//回傳給使用者之資訊 \n要用""
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => $replymessage
+		]
+	  ]
+	];
 	push($post_data,$access_token);
 }
 else if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
