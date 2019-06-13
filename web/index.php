@@ -51,7 +51,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	];
 	push($post_data,$access_token);
 }
-if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
+else if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$sql8="UPDATE user set area=NULL WHERE user_id = '$user_id'";
 	mysqli_query($link,$sql8);
 	$post_data = [
