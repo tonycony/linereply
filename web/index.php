@@ -60,7 +60,7 @@ else if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => '你離開了A區 到達'."$row['area']".'區'
+		  "text" => '你離開了A區 到達'.(string)$row['area'].'區'
 		]
 	  ]
 	];
