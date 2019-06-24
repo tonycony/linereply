@@ -26,9 +26,10 @@ $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
-
+date_default_timezone_set('Asia/Taipei');
+$Time=date("Y.m.d H:i:s") ;
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	$sql6="insert into history_list(user_id,process) values ('$user_id','A')";
+	$sql6="insert into history_list(user_id,process,time) values ('$user_id','A','$Time')";
 	mysqli_query($link,$sql6);
 	$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
 	mysqli_query($link,$sql8);
@@ -54,7 +55,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	push($post_data,$access_token);
 }
 if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	$sql5="insert into history_list(user_id,process) values ('$user_id','B')";
+	$sql5="insert into history_list(user_id,process,time) values ('$user_id','B','$Time')";
 	mysqli_query($link,$sql5);
 	$sql8="UPDATE user set area='B' WHERE user_id = '$user_id'";
 	mysqli_query($link,$sql8);
