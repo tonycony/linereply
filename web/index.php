@@ -28,10 +28,8 @@ $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
 
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	$sql6="insert into history_list(real_ID) values ('$user_id')";
+	$sql6="insert into history_list(real_ID,process) values ('$user_id','A')";
 	mysqli_query($link,$sql6);
-	$sql7="insert into history_list(process) values ('A')";
-	mysqli_query($link,$sql7);
 	$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
 	mysqli_query($link,$sql8);
 	$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
@@ -56,10 +54,8 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	push($post_data,$access_token);
 }
 if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	$sql6="insert into history_list(real_ID) values ('$user_id')";
+	$sql6="insert into history_list(real_ID,process) values ('$user_id','B')";
 	mysqli_query($link,$sql6);
-	$sql7="insert into history_list(process) values ('B')";
-	mysqli_query($link,$sql7);
 	$sql8="UPDATE user set area='B' WHERE user_id = '$user_id'";
 	mysqli_query($link,$sql8);
 	$sql="SELECT * FROM b_air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
