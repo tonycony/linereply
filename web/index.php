@@ -51,21 +51,6 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	];
 	push($post_data,$access_token);
 }
-else if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
-	$sql9 = "SELECT * FROM user where user_id = '$user_id'";
-	$result2 = mysqli_query($link,$sql9);
-	$row = mysqli_fetch_array($result2);
-	$post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
-		[
-		  "type" => "text",
-		  "text" => '你離開了A區 到達'.(string)$row['area']."區"
-		]
-	  ]
-	];
-	push($post_data,$access_token);
-}
 if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql8="UPDATE user set area='B' WHERE user_id = '$user_id'";
 	mysqli_query($link,$sql8);
