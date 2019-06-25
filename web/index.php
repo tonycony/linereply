@@ -111,14 +111,12 @@ if($type == "text"){
 	}
 }
 if($type == "image"){
-	$message = getObjContent("jpeg");
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
 		[
-		  "type" => "image",
-		  "originalContentUrl" => $message,
-		  "previewImageUrl" => $message
+		  "type" => "text",
+		  "text" =>  "已重新計數"
 		]
 	  ]
 	];
