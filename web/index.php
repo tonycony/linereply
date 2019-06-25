@@ -99,7 +99,7 @@ if($type == "text"){
 			  "messages" => [
 				[
 				  "type" => "text",
-				  "text" =>  "你好 $name  "."你可以使用其他功能了"
+				  "text" =>  "你好 $name"."\n"."你可以使用其他功能了"
 				]
 			  ]
 			];
