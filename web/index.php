@@ -6,6 +6,7 @@ $json_obj = json_decode(file_get_contents('php://input'));
 $event = $json_obj->{"events"}[0];
 $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
+$contentProvider = $event->{"message"}->{"contentProvider"};
 $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
 
@@ -90,6 +91,23 @@ if($type == "text"){
 		];
 	}
 }
+if($type == "image"){
+	if($contentProvider->{"type"} == "line"){
+		$originalContentUrl = $contentProvider->{"originalContentUrl"};
+		$previewImageUrl = $contentProvider->{"previewImageUrl"};
+	}
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "image",
+		  "originalContentUrl" =>  $originalContentUrl,
+		  "previewImageUrl" => $previewImageUrl
+		]
+	  ]
+	];
+}
+	
 
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
