@@ -135,7 +135,7 @@ if($type == "text"){
 	}
 }
 if($type == "image"){
-	reply($content_type, $text);
+	reply($content_type, $image);
 }
 
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
