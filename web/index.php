@@ -2,18 +2,33 @@
 include("mysql_connect.inc.php");
 $access_token ='IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU=';
 //define('TOKEN', '你的Channel Access Token');
-$json_string = file_get_contents('php://input');
-//$file = fopen("D:\\Line_log.txt", "a+");
-//fwrite($file, $json_string."\n"); 
-$json_obj = json_decode($json_string);
+$json_obj = json_decode(file_get_contents('php://input'));
 $event = $json_obj->{"events"}[0];
 $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
-/*$code = '100058';
-$bin = hex2bin(str_repeat('0', 8 - strlen($code)) . $code);
-$emoticon =  mb_convert_encoding($bin, 'UTF-8', 'UTF-32BE');*/
 $reply_token = $event->{"replyToken"};
+function getObjContent($filenameExtension){
+		
+	global $channel_access_token, $receive;
+	$objID = $receive->events[0]->message->id;
+	$url = 'https://api.line.me/v2/bot/message/'.$objID.'/content';
+	$ch = curl_init($url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+		'Authorization: Bearer {' . $channel_access_token . '}',
+	));
+	$json_content = curl_exec($ch);
+	curl_close($ch);
+	if (!$json_content) {
+		return false;
+	}
+	$fileURL = './update/'.$objID.'.'.$filenameExtension;
+	$fp = fopen($fileURL, 'w');
+	fwrite($fp, $json_content);
+	fclose($fp);
+	return $myURL.$objID.'.'.$filenameExtension;
+}
 if($type == "text"){
 	$sql="insert into Cleaning_staff(user_id) values ('$user_id')";
 	mysqli_query($link,$sql);
@@ -95,33 +110,20 @@ if($type == "text"){
 		];
 	}
 }
-if('0129d91ed3' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	$sql8="UPDATE Cleaning_staff set area='A' WHERE user_id = '$user_id'";
-	mysqli_query($link,$sql8);
+if($type == "image"){
+	$message = getObjContent("jpeg" || "jpg" || "png");
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
 		[
-		  "type" => "text",
-		  "text" =>  "A"
+		  "type" => "image",
+		  "originalContentUrl" => $message,
+		  "previewImageUrl" => $message
 		]
 	  ]
 	];
 }
-if('012b6d830b' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	$sql8="UPDATE Cleaning_staff set area='B' WHERE user_id = '$user_id'";
-	mysqli_query($link,$sql8);
-	$post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
-		[
-		  "type" => "text",
-		  "text" =>  "B"
-		]
-	  ]
-	];
-}
-//fwrite($file, json_encode($post_data)."\n");
+
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -135,10 +137,6 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, array(
     //'Authorization: Bearer '. TOKEN
 ));
 $result = curl_exec($ch);
-//fwrite($file, $result."\n");  
-//fclose($file);
 curl_close($ch); 
-//include("mysql_connect.inc.php");
-//$sql="insert into user(user_id, user_name) values ('$user_id', '$message')";
-//mysqli_query($link,$sql);
+
 ?>
