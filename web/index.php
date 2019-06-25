@@ -111,7 +111,7 @@ if($type == "text"){
 	}
 }
 if($type == "image"){
-	$message = getObjContent("jpg");
+	$message = getObjContent("jpeg");
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
