@@ -95,17 +95,16 @@ if($type == "image"){
 	if($contentProvider->{"type"} == "external"){
 		$originalContentUrl = $contentProvider->{"originalContentUrl"};
 		$previewImageUrl = $contentProvider->{"previewImageUrl"};
+		$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "text",
+			  "text" => $originalContentUrl
+			]
+		  ]
+		];
 	}
-	$post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
-		[
-		  "type" => "image",
-		  "originalContentUrl" =>  $originalContentUrl,
-		  "previewImageUrl" => $previewImageUrl
-		]
-	  ]
-	];
 }
 	
 
