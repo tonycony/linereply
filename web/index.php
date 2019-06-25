@@ -126,6 +126,16 @@ if($type == "text"){
 		switch ($message)
 		{
 			  case "@空氣品質":
+				$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
+				$result=mysqli_query($link,$sql);
+				$row = mysqli_fetch_array($result);
+				$replymessage='您所在A區'."\n"
+				.'溫度是'.(string)$row['Temperature']."°C\n"
+				.'濕度是'.(string)$row['Humidity']."%\n"
+				.'Co濃度是'.(string)$row['Co']."\n"
+				.'Co2濃度是'.(string)$row['Co2']."PPM\n"	
+				.'PM2.5是'.(string)$row['PM25'];//回傳給使用者之資訊 \n要用""
+				break;
 				switch ($row['area'])
 				{
 					case "A":
