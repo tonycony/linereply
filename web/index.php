@@ -3,7 +3,7 @@
 	$channel_id = '1627161358';
 	$channel_secret = 'cae075a0f0e825e4ea25dd70f5ad1d99';
 	$channel_access_token = 'IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU=';
-	$myURL = 'https://imgur.com/user/tony40727/favorites/folder/6998551/new-folder/'
+	$myURL = 'https://imgur.com/user/tony40727/posts/'
 	//  當有人發送訊息給bot時 我們會收到的json
 	// 	{
 	// 	  "events": 
