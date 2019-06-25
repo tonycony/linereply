@@ -99,7 +99,8 @@ if($type == "image"){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => $contentProvider->{"originalContentUrl"}
+		  "contentProvider" => "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjVuq-9k4TjAhWKv7wKHayyDMEQjRx6BAgBEAU&url=http%3A%2F%2Fwww.personal.psu.edu%2Fjyc5774%2Fjpg.html&psig=AOvVaw3hnhyM3uamCH5w4mnqzGYW&ust=1561535577381236",
+		"previewImageUrl"=> "https://ppt.cc/frfA6x"
 		]
 	  ]
 	];
