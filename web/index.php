@@ -1,158 +1,109 @@
 <?php
-	/* 輸入申請的Line Developers 資料  */
-	$channel_id = '1627161358';
-	$channel_secret = 'cae075a0f0e825e4ea25dd70f5ad1d99';
-	$channel_access_token = 'IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU=';
-	$myURL = 'https://imgur.com/user/tony40727/posts/'
-	//  當有人發送訊息給bot時 我們會收到的json
-	// 	{
-	// 	  "events": 
-	// 	  [
-	// 		  {
-	// 			"replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
-	// 			"type": "message",
-	// 			"timestamp": 1462629479859,
-	// 			"source": {
-	// 				 "type": "user",
-	// 				 "userId": "U206d25c2ea6bd87c17655609a1c37cb8"
-	// 			 },
-	// 			 "message": {
-	// 				 "id": "325708",
-	// 				 "type": "text",
-	// 				 "text": "Hello, world"
-	// 			  }
-	// 		  }
-	// 	  ]
-	// 	}
-	 
-	 
-	// 將收到的資料整理至變數
-	$receive = json_decode(file_get_contents("php://input"));
+include("mysql_connect.inc.php");
+$access_token ='IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU=';
+//define('TOKEN', '你的Channel Access Token');
+$json_obj = json_decode(file_get_contents('php://input'));
+$event = $json_obj->{"events"}[0];
+$type  = $event->{"message"}->{"type"};
+$message = $event->{"message"}->{"text"};
+$user_id  = $event->{"source"}->{"userId"};
+$reply_token = $event->{"replyToken"};
+
+if($type == "text"){
+	$sql="insert into Cleaning_staff(user_id) values ('$user_id')";
+	mysqli_query($link,$sql);
 	
-	// 讀取收到的訊息內容
-	$text = $receive->events[0]->message->text;
-	
-	// 讀取訊息來源的類型 	[user, group, room]
-	$type = $receive->events[0]->source->type;
-	
-	// 由於新版的Messaging Api可以讓Bot帳號加入多人聊天和群組當中
-	// 所以在這裡先判斷訊息的來源
-	if ($type == "room")
+	$sql9 = "SELECT * FROM Cleaning_staff where user_id= '$user_id'";
+	$result2 = mysqli_query($link,$sql9);
+	$row = mysqli_fetch_row($result2);
+	if($row[1]==NULL)
 	{
-		// 多人聊天 讀取房間id
-		$from = $receive->events[0]->source->roomId;
-	} 
-	else if ($type == "group")
+		$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "text",
+			  "text" =>  "請先輸入您的姓名\n以利為您服務喔\n輸入格式為 (姓名：xxx)"
+			]
+		  ]
+		];
+	}
+	if(substr($message,0,9)=="姓名：")
 	{
-		// 群組 讀取群組id
-		$from = $receive->events[0]->source->groupId;
+		$name=substr($message,9);
+		$sql="UPDATE Cleaning_staff set user_name='$name' where user_id='$user_id'";
+		mysqli_query($link,$sql);
+		$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "text",
+			  "text" =>  "你好 $name"
+			]
+		  ]
+		];
 	}
-	else
+	if(substr($message,0,7)=="姓名:")
 	{
-		// 一對一聊天 讀取使用者id
-		$from = $receive->events[0]->source->userId;
+		$name=substr($message,7);
+		$sql="UPDATE Cleaning_staff set user_name='$name' where user_id='$user_id'";
+		mysqli_query($link,$sql);
+		$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "text",
+			  "text" =>  "你好 $name"
+			]
+		  ]
+		];
 	}
+	if($message=="查詢廁所已使用人數")
+	{
+		$sql="SELECT count FROM Cleaning_count where area='A'";
+		$result=mysqli_query($link,$sql);
+		$row =mysqli_fetch_array($result);
 	
-	// 讀取訊息的型態 [Text, Image, Video, Audio, Location, Sticker]
-	$content_type = $receive->events[0]->message->type;
-	
-	// 準備Post回Line伺服器的資料 
-	$header = ["Content-Type: application/json", "Authorization: Bearer {" . $channel_access_token . "}"];
-	
-	// 回覆訊息
-	reply($content_type, $text);
-	
-	function reply($content_type, $message) {
-	 
-	 	global $header, $from, $receive;
-	 	
-		$url = "https://api.line.me/v2/bot/message/push";
-		
-		$data = ["to" => $from, "messages" => array(["type" => "text", "text" => $message])];
-		
-		switch($content_type) {
-		
-			case "text" :
-				$content_type = "文字訊息";
-				$data = ["to" => $from, "messages" => array(["type" => "text", "text" => $message])];
-				break;
-				
-			case "image" :
-				$content_type = "圖片訊息";
-				$message = getObjContent("jpeg");   // 讀取圖片內容
-				$data = ["to" => $from, "messages" => array(["type" => "image", "originalContentUrl" => $message, "previewImageUrl" => $message])];
-				break;
-				
-			case "video" :
-				$content_type = "影片訊息";
-				$message = getObjContent("mp4");   // 讀取影片內容
-				$data = ["to" => $from, "messages" => array(["type" => "video", "originalContentUrl" => $message, "previewImageUrl" => $message])];
-				break;
-				
-			case "audio" :
-				$content_type = "語音訊息";
-				$message = getObjContent("mp3");   // 讀取聲音內容
-				$data = ["to" => $from, "messages" => array(["type" => "audio", "originalContentUrl" => $message[0], "duration" => $message[1]])];
-				break;
-				
-			case "location" :
-				$content_type = "位置訊息";
-				$title = $receive->events[0]->message->title;
-				$address = $receive->events[0]->message->address;
-				$latitude = $receive->events[0]->message->latitude;
-				$longitude = $receive->events[0]->message->longitude;
-				$data = ["to" => $from, "messages" => array(["type" => "location", "title" => $title, "address" => $address, "latitude" => $latitude, "longitude" => $longitude])];
-				break;
-				
-			case "sticker" :
-				$content_type = "貼圖訊息";
-				$packageId = $receive->events[0]->message->packageId;
-				$stickerId = $receive->events[0]->message->stickerId;
-				$data = ["to" => $from, "messages" => array(["type" => "sticker", "packageId" => $packageId, "stickerId" => $stickerId])];
-				break;
-				
-			default:
-				$content_type = "未知訊息";
-				break;
-	   	}
-		
-		$context = stream_context_create(array(
-		"http" => array("method" => "POST", "header" => implode(PHP_EOL, $header), "content" => json_encode($data), "ignore_errors" => true)
-		));
-		file_get_contents($url, false, $context);
+		$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "text",
+			  "text" => '現已進入 '.(string)$row[0].' 人'
+			]
+		  ]
+		];
 	}
-	function getObjContent($filenameExtension){
+	if($message=="重新計數")
+	{
+		$sql="UPDATE Cleaning_count set count=0 where area='A'";
+		mysqli_query($link,$sql);
 		
-		global $channel_access_token, $receive;
-	
-		$objID = $receive->events[0]->message->id;
-		$url = 'https://api.line.me/v2/bot/message/'.$objID.'/content';
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-			'Authorization: Bearer {' . $channel_access_token . '}',
-		));
-		
-		$json_content = curl_exec($ch);
-		curl_close($ch);
-		if (!$json_content) {
-			return false;
-		}
-		
-		$fileURL = './update/'.$objID.'.'.$filenameExtension;
-		$fp = fopen($fileURL, 'w');
-		fwrite($fp, $json_content);
-		fclose($fp);
-		
-		if ($filenameExtension=="mp3"){
-			require_once("../getID3/getid3/getid3.php");
-			$getID3 = new getID3;
-			$fileData = $getID3->analyze($fileURL);
-			//$audioInfo = var_dump($fileData);
-			$playSec = floor($fileData["playtime_seconds"]);
-			$re = array($myURL.$objID.'.'.$filenameExtension, $playSec*1000);
-			return $re;
-		}
-		return $myURL.$objID.'.'.$filenameExtension;
+		$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "text",
+			  "text" =>  "已重新計數"
+			]
+		  ]
+		];
 	}
+}
+
+$ch = curl_init("https://api.line.me/v2/bot/message/reply");
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
+curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+    'Content-Type: application/json',
+    'Authorization: Bearer '.$access_token
+    //'Authorization: Bearer '. TOKEN
+));
+$result = curl_exec($ch);
+curl_close($ch); 
+
 ?>
