@@ -94,12 +94,20 @@ if($type == "text"){
 if($type == "image"){
 	$objID = $event->{"message"}->{"id"};
 	$url = 'https://api.line.me/v2/bot/message/'.$objID.'/content';
+	$chr = curl_init($url);
+	curl_setopt($chr, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($chr, CURLOPT_HTTPHEADER, array(
+		'Authorization: Bearer {' . $access_token . '}',
+	));
+	$json_content = curl_exec($chr);
+	curl_close($chr);
+	
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => $url
+		  "text" => $json_content
 		]
 	  ]
 	];
