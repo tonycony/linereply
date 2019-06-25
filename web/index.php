@@ -92,14 +92,14 @@ if($type == "text"){
 	}
 }
 if($type == "image"){
-	$originalContentUrl = $contentProvider->{"originalContentUrl"};
-	$previewImageUrl = $contentProvider->{"previewImageUrl"};
+	$objID = $event->{"message"}->{"id"};
+	$url = 'https://api.line.me/v2/bot/message/'.$objID.'/content';
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => "嗨"
+		  "text" => $url
 		]
 	  ]
 	];
