@@ -92,7 +92,7 @@ if($type == "text"){
 	}
 }
 if($type == "image"){
-	if($contentProvider->{"type"} == "line"){
+	if($contentProvider->{"type"} == "external"){
 		$originalContentUrl = $contentProvider->{"originalContentUrl"};
 		$previewImageUrl = $contentProvider->{"previewImageUrl"};
 	}
