@@ -29,6 +29,30 @@ function getObjContent($filenameExtension){
 	fclose($fp);
 	return $myURL.$objID.'.'.$filenameExtension;
 }
+function reply($content_type, $message) {
+	 
+	global $header, $from, $receive;
+
+	$url = "https://api.line.me/v2/bot/message/push";
+
+	$data = ["to" => $from, "messages" => array(["type" => "text", "text" => $message])];
+
+	switch($content_type) {
+		case "image" :
+			$content_type = "圖片訊息";
+			$message = getObjContent("jpeg");   // 讀取圖片內容
+			$data = ["to" => $from, "messages" => array(["type" => "image", "originalContentUrl" => $message, "previewImageUrl" => $message])];
+			break;
+		default:
+			$content_type = "未知訊息";
+			break;
+	}
+
+	$context = stream_context_create(array(
+	"http" => array("method" => "POST", "header" => implode(PHP_EOL, $header), "content" => json_encode($data), "ignore_errors" => true)
+	));
+	file_get_contents($url, false, $context);
+}
 if($type == "text"){
 	$sql="insert into Cleaning_staff(user_id) values ('$user_id')";
 	mysqli_query($link,$sql);
@@ -111,16 +135,7 @@ if($type == "text"){
 	}
 }
 if($type == "image"){
-	$imcode = getObjContent("jpeg");
-	$post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
-		[
-		  "type" => "text",
-		  "text" => $imcode
-		]
-	  ]
-	];
+	reply($content_type, $text);
 }
 
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
