@@ -92,19 +92,18 @@ if($type == "text"){
 	}
 }
 if($type == "image"){
-	if($contentProvider->{"type"} == "external"){
-		$originalContentUrl = $contentProvider->{"originalContentUrl"};
-		$previewImageUrl = $contentProvider->{"previewImageUrl"};
-		$post_data = [
-		  "replyToken" => $reply_token,
-		  "messages" => [
-			[
-			  "type" => "text",
-			  "text" => $originalContentUrl
-			]
-		  ]
-		];
-	}
+	$originalContentUrl = $contentProvider->{"originalContentUrl"};
+	$previewImageUrl = $contentProvider->{"previewImageUrl"};
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => $contentProvider->{"type"}
+		]
+	  ]
+	];
+	
 }
 	
 
