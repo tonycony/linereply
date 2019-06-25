@@ -99,7 +99,7 @@ if($type == "image"){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => $contentProvider->{"type"}
+		  "text" => $contentProvider->{"originalContentUrl"}
 		]
 	  ]
 	];
