@@ -90,7 +90,18 @@ if($type == "text"){
 		];
 	}
 }
-
+if($type == "image"){
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "image",
+		  'originalContentUrl' => 'https://api.reh.tw/line/bot/example/assets/images/example.jpg',
+		  'previewImageUrl' => 'https://api.reh.tw/line/bot/example/assets/images/example.jpg'
+		]
+	  ]
+	];
+}
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
