@@ -94,7 +94,7 @@ if($type == "image"){
 	$id = $event->{"message"}->{"id"};
 	$curl = curl_init();
 	curl_setopt_array($curl, array(
-	  CURLOPT_URL => "https://api.line.me/v2/bot/message/10107794015875/content",
+	  CURLOPT_URL => "https://api.line.me/v2/bot/message/".$id."/content?auto_download=false&product_type=easyaccess",
 	  CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => "",
 	  CURLOPT_MAXREDIRS => 10,
@@ -117,15 +117,7 @@ if($type == "image"){
 	if ($err) {
 	  echo "cURL Error #:" . $err;
 	} else {
-	  	$post_data = [
-		  "replyToken" => $reply_token,
-		  "messages" => [
-			[
-			  "type" => "text",
-			  "text" => $response
-			]
-		  ]
-		];
+	  echo $response;
 	}
 }
 
