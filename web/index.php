@@ -92,15 +92,30 @@ if($type == "text"){
 }
 if($type == "image"){
 	$id = $event->{"message"}->{"id"};
-	$post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
-		[
-		  "type" => "text",
-		  "text" => $id
-		]
-	  ]
-	];
+	$chcurl = curl_init("https://api.line.me/v2/bot/message/".$id."/content");
+	curl_setopt($chcurl, CURLOPT_GET, true);
+	curl_setopt($chcurl, CURLOPT_CUSTOMREQUEST, 'GET');
+	curl_setopt($chcurl, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($chcurl, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($chcurl, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_setopt($chcurl, CURLOPT_HTTPHEADER, array(
+	    'Content-Type: application/json',
+	    'Authorization: Bearer '.$access_token
+	));
+	$get = curl_exec($chcurl);
+	curl_close($chcurl);
+	save_image($get,'image.jpg');
+}
+function save_image($inPath,$outPath)
+{ //Download images from remote server
+    $in=    fopen($inPath, "rb");
+    $out=   fopen($outPath, "wb");
+    while ($chunk = fread($in,8192))
+    {
+        fwrite($out, $chunk, 8192);
+    }
+    fclose($in);
+    fclose($out);
 }
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
