@@ -122,7 +122,7 @@ if($type == "image"){
 		  "messages" => [
 			[
 			  "type" => "text",
-			  "text" => "嗨"
+			  "text" => $response
 			]
 		  ]
 		];
