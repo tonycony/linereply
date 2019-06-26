@@ -105,6 +105,15 @@ if($type == "image"){
 	$get = curl_exec($chcurl);
 	curl_close($chcurl);
 	save_image($get,'image.jpg');
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => $get
+		]
+	  ]
+	];
 }
 function save_image($inPath,$outPath)
 { //Download images from remote server
