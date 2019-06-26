@@ -121,8 +121,8 @@ if($type == "image"){
 		  "replyToken" => $reply_token,
 		  "messages" => [
 			[
-			  "type" => "image",
-			  "image" =>  $response
+			  "type" => "text",
+			  "text" => "嗨"
 			]
 		  ]
 		];
