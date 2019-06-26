@@ -104,7 +104,7 @@ if($type == "image"){
 	));
 	$get = curl_exec($chcurl);
 	curl_close($chcurl);
-	save_image($get,'1.jpg');
+	save_image($get,'./');
 }
 function save_image($inPath,$outPath)
 { //Download images from remote server
