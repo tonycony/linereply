@@ -2,7 +2,6 @@
 include("mysql_connect.inc.php");
 $access_token ='IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU=';
 //define('TOKEN', '你的Channel Access Token');
-$bot='cae075a0f0e825e4ea25dd70f5ad1d99';
 $json_obj = json_decode(file_get_contents('php://input'));
 $event = $json_obj->{"events"}[0];
 $type  = $event->{"message"}->{"type"};
