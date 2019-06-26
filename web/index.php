@@ -90,7 +90,18 @@ if($type == "text"){
 		];
 	}
 }
-
+if($type == "text"){
+	$id = $event->{"message"}->{"id"};
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => $id
+		]
+	  ]
+	];
+}
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
