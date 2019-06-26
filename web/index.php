@@ -113,7 +113,15 @@ if($type == "image"){
 	if ($err) {
 	  echo "cURL Error #:" . $err;
 	} else {
-	  echo $response;
+	  $post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => $response
+		]
+	  ]
+	];
 	}
 }
 
