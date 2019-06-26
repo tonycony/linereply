@@ -91,38 +91,7 @@ if($type == "text"){
 		];
 	}
 }
-if($type == "image"){
-	$id =$event->{"message"}->{"id"};
-	$ch = curl_init("https://api.line.me/v2/bot/message/"."$id"."/content");
-	$response = $bot->getMessageContent('$id');
-	if ($response->isSucceeded()) {
-		$tempfile = tmpfile();
-		fwrite($tempfile, $response->getRawBody());
-	}else {
-		error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
-	}
-	$post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
-		[
-		  "type" => "text",
-		  "text" =>  $tempfile
-		]
-	  ]
-	];
-	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-	    'Content-Type: application/json',
-	    'Authorization: Bearer '.$access_token
-	    //'Authorization: Bearer '. TOKEN
-	));
-	curl_close($ch); 
-}
+
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
