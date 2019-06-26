@@ -2,6 +2,7 @@
 include("mysql_connect.inc.php");
 $access_token ='IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU=';
 //define('TOKEN', '你的Channel Access Token');
+$bot='cae075a0f0e825e4ea25dd70f5ad1d99';
 $json_obj = json_decode(file_get_contents('php://input'));
 $event = $json_obj->{"events"}[0];
 $type  = $event->{"message"}->{"type"};
@@ -91,16 +92,36 @@ if($type == "text"){
 	}
 }
 if($type == "image"){
+	$id =$event->{"message"}->{"id"};
+	$ch = curl_init("https://api.line.me/v2/bot/message/"."$id"."/content");
+	$response = $bot->getMessageContent('$id');
+	if ($response->isSucceeded()) {
+		$tempfile = tmpfile();
+		fwrite($tempfile, $response->getRawBody());
+	}else {
+		error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
+	}
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
 		[
-		  "type" => "image",
-		  'originalContentUrl' => 'https://api.reh.tw/line/bot/example/assets/images/example.jpg',
-		  'previewImageUrl' => 'https://api.reh.tw/line/bot/example/assets/images/example.jpg'
+		  "type" => "text",
+		  "text" =>  $tempfile
 		]
 	  ]
 	];
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+	    'Content-Type: application/json',
+	    'Authorization: Bearer '.$access_token
+	    //'Authorization: Bearer '. TOKEN
+	));
+	curl_close($ch); 
 }
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
