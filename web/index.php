@@ -94,17 +94,21 @@ if($type == "image"){
 	$id = $event->{"message"}->{"id"};
 	$curl = curl_init();
 	curl_setopt_array($curl, array(
-	  CURLOPT_URL => "https://api.line.me/v2/bot/message/".$id."/content",
+	  CURLOPT_URL => "https://api.line.me/v2/bot/message/10107794015875/content",
 	  CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => "",
+	  CURLOPT_MAXREDIRS => 10,
+	  CURLOPT_TIMEOUT => 30,
 	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 	  CURLOPT_CUSTOMREQUEST => "GET",
 	  CURLOPT_POSTFIELDS => "",
 	  CURLOPT_HTTPHEADER => array(
-	    "Authorization: Bearer ".$access_token,
+	    "Authorization: Bearer IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU=",
+	    "Postman-Token: f20b2335-f1ae-462a-905f-252bb40cfde3",
 	    "cache-control: no-cache"
 	  ),
 	));
+
 	$response = curl_exec($curl);
 	$err = curl_error($curl);
 
@@ -113,15 +117,15 @@ if($type == "image"){
 	if ($err) {
 	  echo "cURL Error #:" . $err;
 	} else {
-	  $post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
-		[
-		  "type" => "text",
-		  "text" => $response
-		]
-	  ]
-	];
+	  	$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "image",
+			  "image" =>  $response
+			]
+		  ]
+		];
 	}
 }
 
