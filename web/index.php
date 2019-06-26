@@ -90,7 +90,7 @@ if($type == "text"){
 		];
 	}
 }
-if($type == "text"){
+if($type == "image"){
 	$id = $event->{"message"}->{"id"};
 	$post_data = [
 	  "replyToken" => $reply_token,
