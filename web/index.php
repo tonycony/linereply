@@ -92,31 +92,31 @@ if($type == "text"){
 }
 if($type == "image"){
 	$id = $event->{"message"}->{"id"};
-	$chcurl = curl_init("https://api.line.me/v2/bot/message/".$id."/content");
-	curl_setopt($chcurl, CURLOPT_HTTPGET, true);
-	curl_setopt($chcurl, CURLOPT_CUSTOMREQUEST, 'GET');
-	curl_setopt($chcurl, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($chcurl, CURLOPT_SSL_VERIFYHOST, 0);
-	curl_setopt($chcurl, CURLOPT_SSL_VERIFYPEER, 0);
-	curl_setopt($chcurl, CURLOPT_HTTPHEADER, array(
-	    'Content-Type: application/json',
-	    'Authorization: Bearer '.$access_token
+	$curl = curl_init();
+	curl_setopt_array($curl, array(
+	  CURLOPT_URL => "https://api.line.me/v2/bot/message/".$id."/content",
+	  CURLOPT_RETURNTRANSFER => true,
+	  CURLOPT_ENCODING => "",
+	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	  CURLOPT_CUSTOMREQUEST => "GET",
+	  CURLOPT_POSTFIELDS => "",
+	  CURLOPT_HTTPHEADER => array(
+	    "Authorization: Bearer ".$access_token,
+	    "cache-control: no-cache"
+	  ),
 	));
-	$get = curl_exec($chcurl);
-	curl_close($chcurl);
-	save_image($get,'./');
+	$response = curl_exec($curl);
+	$err = curl_error($curl);
+
+	curl_close($curl);
+
+	if ($err) {
+	  echo "cURL Error #:" . $err;
+	} else {
+	  echo $response;
+	}
 }
-function save_image($inPath,$outPath)
-{ //Download images from remote server
-    $in=    fopen($inPath, "rb");
-    $out=   fopen($outPath, "wb");
-    while ($chunk = fread($in,8192))
-    {
-        fwrite($out, $chunk, 8192);
-    }
-    fclose($in);
-    fclose($out);
-}
+
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
