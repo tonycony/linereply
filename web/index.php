@@ -54,9 +54,9 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	];
 	push($post_data,$access_token);
 	if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
-		$sql3="insert into history_list(user_id,process,time) values ('$user_id',NULL,'$Time')";
+		$sql3="insert into history_list(user_id,process,time) values ('$user_id','Ax','$Time')";
 		mysqli_query($link,$sql3);
-		$sql2="UPDATE user set area=NULL WHERE user_id = '$user_id'";
+		$sql2="UPDATE user set area='Ax' WHERE user_id = '$user_id'";
 		mysqli_query($link,$sql2);
 		$replymessage='你已離開A區';
 		$post_data = [
