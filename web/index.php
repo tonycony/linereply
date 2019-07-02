@@ -68,6 +68,7 @@ else if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 		]
 	  ]
 	];
+	push($post_data,$access_token);
 }
 if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql5="insert into history_list(user_id,process,time) values ('$user_id','B','$Time')";
@@ -107,6 +108,7 @@ else if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 		]
 	  ]
 	];
+	push($post_data,$access_token);
 }
 if($type == "text"){
 	
