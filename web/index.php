@@ -54,6 +54,21 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	];
 	push($post_data,$access_token);
 }
+else if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
+	$sql6="insert into history_list(user_id,process,time) values ('$user_id','Aleave','$Time')";
+	mysqli_query($link,$sql6);
+	$sql8="UPDATE user set area='Aleave' WHERE user_id = '$user_id'";
+	mysqli_query($link,$sql8);
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => "你已離開A區"
+		]
+	  ]
+	];
+}
 if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql5="insert into history_list(user_id,process,time) values ('$user_id','B','$Time')";
 	mysqli_query($link,$sql5);
@@ -77,6 +92,21 @@ if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	  ]
 	];
 	push($post_data,$access_token);
+}
+else if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
+	$sql6="insert into history_list(user_id,process,time) values ('$user_id','Bleave','$Time')";
+	mysqli_query($link,$sql6);
+	$sql8="UPDATE user set area='Bleave' WHERE user_id = '$user_id'";
+	mysqli_query($link,$sql8);
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => "你已離開B區"
+		]
+	  ]
+	];
 }
 if($type == "text"){
 	
