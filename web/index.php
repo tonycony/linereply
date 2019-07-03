@@ -100,17 +100,17 @@ else if($type == "image"){
 	$result = curl_exec($c);
 	curl_close($c);
 	$msg    = json_decode($result);
-	if($msg){
-		$post_data = [
-		  "replyToken" => $reply_token,
-		  "messages" => [
-			[
-			  "type" => "text",
-			  "text" =>  $obj_id
-			]
-		  ]
-		];
-	}
+	
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" =>  $obj_id
+		]
+	  ]
+	];
+
 	// ファイルの作成
 	$fileInfo = $obj_id.".jpg";
 	$fp = fopen( $fileInfo, 'wb' );
