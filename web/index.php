@@ -29,7 +29,7 @@ $reply_token = $event->{"replyToken"};
 date_default_timezone_set('Asia/Taipei');
 $Time=date("Y.m.d H:i:s") ;
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	$sql6="insert into history_list(user_id,process,time) values ('$user_id','A','$Time')";
+	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','A','$Time')";
 	mysqli_query($link,$sql6);
 	$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
 	mysqli_query($link,$sql8);
@@ -55,7 +55,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	push($post_data,$access_token);
 }
 if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
-	$sql6="insert into history_list(user_id,process,time) values ('$user_id','Aleave','$Time')";
+	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','Aleave','$Time')";
 	mysqli_query($link,$sql6);
 	$sql8="UPDATE user set area='Aleave' WHERE user_id = '$user_id'";
 	mysqli_query($link,$sql8);
@@ -71,7 +71,7 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	push($post_data,$access_token);
 }
 if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	$sql5="insert into history_list(user_id,process,time) values ('$user_id','B','$Time')";
+	$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$Time')";
 	mysqli_query($link,$sql5);
 	$sql8="UPDATE user set area='B' WHERE user_id = '$user_id'";
 	mysqli_query($link,$sql8);
@@ -95,7 +95,7 @@ if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	push($post_data,$access_token);
 }
 if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
-	$sql6="insert into history_list(user_id,process,time) values ('$user_id','Bleave','$Time')";
+	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','Bleave','$Time')";
 	mysqli_query($link,$sql6);
 	$sql8="UPDATE user set area='Bleave' WHERE user_id = '$user_id'";
 	mysqli_query($link,$sql8);
