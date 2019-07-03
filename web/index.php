@@ -102,11 +102,12 @@ if($type == "image"){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => $obj_id
+		  "text" => $result
 		]
 	  ]
 	];
 	push($post_data,$access_token);
+	
 }
 function get($obj_id){
 	$ch = curl_init("https://api.line.me/v2/bot/message/".$obj_id."/content");
