@@ -97,7 +97,7 @@ if($type == "text"){
 if($type == "image"){
 	$obj_id = $event->{"message"}->{"id"};
 	$data = file_get_contents_curl( "https://api.line.me/v2/bot/message/".$obj_id."/content");
-	$fp = 'LINE_IMG_PATH/'.$obj_id.'.jpg'; 
+	$fp = 'logo-1.png'; 
 	file_put_contents( $fp, $data ); 
 	echo "File downloaded!"
 }
@@ -105,13 +105,13 @@ function file_get_contents_curl($url){
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 	    'Content-Type: application/json',
-	    'Authorization: Bearer '.$access_token
+	    'Authorization: Bearer IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU='
 	));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_URL, $url);
-	$result = curl_exec($ch);
+	$data = curl_exec($ch);
 	curl_close($ch);
-	return $result;
+	return $data;
 }
 function push($post_data,$access_token)
 {
