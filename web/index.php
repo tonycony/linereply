@@ -102,7 +102,7 @@ if($type == "image"){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => $result
+		  "text" => $msg
 		]
 	  ]
 	];
