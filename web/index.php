@@ -96,8 +96,8 @@ if($type == "text"){
 }
 if($type == "image"){
 	$obj_id = $event->{"message"}->{"id"};
-	$data = file_get_contents_curl( "https://api.line.me/v2/bot/message/".$obj_id."/content");
-	$fp = 'logo-1.png'; 
+	$data = file_get_contents_curl( "https://api.line.me/v2/bot/message/10147700050388/content");
+	$fp = 'logo-1.jpg'; 
 	file_put_contents( $fp, $data ); 
 	echo "File downloaded!"
 }
