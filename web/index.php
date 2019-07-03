@@ -8,7 +8,7 @@ $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
-
+$obj_id = $event->{"message"}->{"id"};
 if($type == "text"){
 	$sql="insert into Cleaning_staff(user_id) values ('$user_id')";
 	mysqli_query($link,$sql);
@@ -90,7 +90,60 @@ if($type == "text"){
 		];
 	}
 }
-
+else if($type == "image"){
+	$ch = curl_init("https://api.line.me/v2/bot/message/".$obj_id."/content");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+		'Content-Type: application/json; charser=UTF-8',
+		'Authorization: Bearer ' . $access_token
+	));
+	$result = curl_exec($ch);
+	curl_close($ch);
+	$msg    = json_decode($result);
+	
+	if ( $msg-&gt;message != "" ){
+		$post_data = [
+		  "replyToken" => $reply_token,
+		  "messages" => [
+			[
+			  "type" => "text",
+			  "text" =>  "blank"
+			]
+		  ]
+		];
+	}
+	
+	// ファイルの作成
+	$fileInfo = LINE_IMG_PATH."/".$obj_id.".jpg";
+	$fp = fopen( $fileInfo, 'wb' );
+	if ($fp){
+		if (flock($fp, LOCK_EX)){
+			if ( fwrite($fp,  $result ) === FALSE ){
+				$post_data = [
+				  "replyToken" => $reply_token,
+				  "messages" => [
+					[
+					  "type" => "text",
+					  "text" =>  "false"
+					]
+				  ]
+				];
+			}
+			flock($fp, LOCK_UN);
+		}else{
+			$post_data = [
+			  "replyToken" => $reply_token,
+			  "messages" => [
+				[
+				  "type" => "text",
+				  "text" =>  "true"
+				]
+			  ]
+			];
+		}
+	}
+	fclose($fp);
+}
 $ch = curl_init("https://api.line.me/v2/bot/message/reply");
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
