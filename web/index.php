@@ -27,6 +27,7 @@ if($type == "text"){
 			]
 		  ]
 		];
+		push($post_data,$access_token);
 	}
 	if(substr($message,0,9)=="姓名：")
 	{
@@ -42,6 +43,7 @@ if($type == "text"){
 			]
 		  ]
 		];
+		push($post_data,$access_token);
 	}
 	if(substr($message,0,7)=="姓名:")
 	{
@@ -57,6 +59,7 @@ if($type == "text"){
 			]
 		  ]
 		];
+		push($post_data,$access_token);
 	}
 	if($message=="查詢廁所已使用人數")
 	{
@@ -73,6 +76,7 @@ if($type == "text"){
 			]
 		  ]
 		];
+		push($post_data,$access_token);
 	}
 	if($message=="重新計數")
 	{
@@ -88,73 +92,48 @@ if($type == "text"){
 			]
 		  ]
 		];
+		push($post_data,$access_token);
 	}
 }
-else if($type == "image"){
-	$c = curl_init("https://api.line.me/v2/bot/message/".$obj_id."/content");
-	curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($c, CURLOPT_HTTPHEADER, array(
-		'Content-Type: application/json; charser=UTF-8',
-		'Authorization: Bearer ' . $access_token
-	));
-	$result = curl_exec($c);
-	curl_close($c);
-	$msg    = json_decode($result);
-	
+if($type == "image"){
+	get($obj_id);
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" =>  $obj_id
+		  "text" => $obj_id
 		]
 	  ]
 	];
-
-	// ファイルの作成
-	$fileInfo = $obj_id.".jpg";
-	$fp = fopen( $fileInfo, 'wb' );
-	else if ($fp){
-		if (flock($fp, LOCK_EX)){
-			if ( fwrite($fp,  $result ) === FALSE ){
-				$post_data = [
-				  "replyToken" => $reply_token,
-				  "messages" => [
-					[
-					  "type" => "text",
-					  "text" =>  "false"
-					]
-				  ]
-				];
-			}
-			flock($fp, LOCK_UN);
-		}else{
-			$post_data = [
-			  "replyToken" => $reply_token,
-			  "messages" => [
-				[
-				  "type" => "text",
-				  "text" =>  "true"
-				]
-			  ]
-			];
-		}
-	}
-	fclose($fp);
+	push($post_data,$access_token);
 }
-$ch = curl_init("https://api.line.me/v2/bot/message/reply");
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    'Content-Type: application/json',
-    'Authorization: Bearer '.$access_token
-    //'Authorization: Bearer '. TOKEN
-));
-$result = curl_exec($ch);
-curl_close($ch); 
-
+function get($obj_id){
+	$ch = curl_init("https://api.line.me/v2/bot/message/".$obj_id."/content");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+	    'Content-Type: application/json',
+	    'Authorization: Bearer '.$access_token
+	));
+	$result = curl_exec($ch);
+	curl_close($ch);
+	$msg   = json_decode($result);
+}
+function push($post_data,$access_token)
+{
+	$ch = curl_init("https://api.line.me/v2/bot/message/reply");
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+	    'Content-Type: application/json',
+	    'Authorization: Bearer '.$access_token
+	    //'Authorization: Bearer '. TOKEN
+	));
+	$result = curl_exec($ch);
+	curl_close($ch); 
+}
 ?>
