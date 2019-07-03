@@ -91,32 +91,30 @@ if($type == "text"){
 	}
 }
 else if($type == "image"){
-	$ch = curl_init("https://api.line.me/v2/bot/message/".$obj_id."/content");
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+	$c = curl_init("https://api.line.me/v2/bot/message/".$obj_id."/content");
+	curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($c, CURLOPT_HTTPHEADER, array(
 		'Content-Type: application/json; charser=UTF-8',
 		'Authorization: Bearer ' . $access_token
 	));
-	$result = curl_exec($ch);
-	curl_close($ch);
+	$result = curl_exec($c);
+	curl_close($c);
 	$msg    = json_decode($result);
-	
-	if ( $msg-&gt;message != "" ){
+	if($msg){
 		$post_data = [
 		  "replyToken" => $reply_token,
 		  "messages" => [
 			[
 			  "type" => "text",
-			  "text" =>  "blank"
+			  "text" =>  $obj_id
 			]
 		  ]
 		];
 	}
-	
 	// ファイルの作成
-	$fileInfo = LINE_IMG_PATH."/".$obj_id.".jpg";
+	$fileInfo = $obj_id.".jpg";
 	$fp = fopen( $fileInfo, 'wb' );
-	if ($fp){
+	else if ($fp){
 		if (flock($fp, LOCK_EX)){
 			if ( fwrite($fp,  $result ) === FALSE ){
 				$post_data = [
