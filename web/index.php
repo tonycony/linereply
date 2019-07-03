@@ -8,7 +8,6 @@ $type  = $event->{"message"}->{"type"};
 $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
-$obj_id = $event->{"message"}->{"id"};
 if($type == "text"){
 	$sql="insert into Cleaning_staff(user_id) values ('$user_id')";
 	mysqli_query($link,$sql);
@@ -96,29 +95,23 @@ if($type == "text"){
 	}
 }
 if($type == "image"){
-	get($obj_id);
-	$post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
-		[
-		  "type" => "text",
-		  "text" => $msg
-		]
-	  ]
-	];
-	push($post_data,$access_token);
-	
+	$obj_id = $event->{"message"}->{"id"};
+	$data = file_get_contents_curl( "https://api.line.me/v2/bot/message/".$obj_id."/content");
+	$fp = 'LINE_IMG_PATH/'.$obj_id.'.jpg'; 
+	file_put_contents( $fp, $data ); 
+	echo "File downloaded!"
 }
-function get($obj_id){
-	$ch = curl_init("https://api.line.me/v2/bot/message/".$obj_id."/content");
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+function file_get_contents_curl($url){
+	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 	    'Content-Type: application/json',
 	    'Authorization: Bearer '.$access_token
 	));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_URL, $url);
 	$result = curl_exec($ch);
 	curl_close($ch);
-	$msg   = json_decode($result);
+	return $result;
 }
 function push($post_data,$access_token)
 {
