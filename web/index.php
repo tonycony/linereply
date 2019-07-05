@@ -97,7 +97,7 @@ if($type == "text"){
 if($type == "image"){
 	$obj_id = $event->{"message"}->{"id"};
 	$data = file_get_contents_curl( "https://api.line.me/v2/bot/message/".$obj_id."/content");
-	$fp = '1.'; 
+	$fp = '1.jpg'; 
 	file_put_contents( $fp, $data );
 }
 function file_get_contents_curl($url){
