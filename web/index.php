@@ -97,8 +97,23 @@ if($type == "text"){
 if($type == "image"){
 	$obj_id = $event->{"message"}->{"id"};
 	$data = file_get_contents_curl( "https://api.line.me/v2/bot/message/".$obj_id."/content");
-	$fp = '1.jpg'; 
-	file_put_contents( $fp, $data );
+	$timeout = 30;
+	$client_id="fd5b59d71985448";
+	$curl_post_array = [
+	  'image' => $data,
+	  'title' => 'image',
+	 ];
+	$posturl = postimage($timeout,$client_id,$curl_post_array);
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => $posturl
+		]
+	  ]
+	];
+	push($post_data,$access_token);
 }
 function file_get_contents_curl($url){
 	$ch = curl_init();
@@ -111,6 +126,28 @@ function file_get_contents_curl($url){
 	$data = curl_exec($ch);
 	curl_close($ch);
 	return $data;
+}
+function postimage($timeout,$client_id,$curl_post_array)
+{
+	$curl = curl_init();
+	curl_setopt($curl, CURLOPT_URL, 'https://api.imgur.com/3/image.json');
+	curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
+	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Client-ID ' . $client_id));
+	curl_setopt($curl, CURLOPT_POST, 1);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($curl, CURLOPT_POSTFIELDS, $curl_post_array);
+	$curl_result = curl_exec($curl);
+	curl_close ($curl);
+	$Received_JsonParse = json_decode($curl_result,true);
+
+	if ($Received_JsonParse['success'] = true) {
+	$ImgURL = $Received_JsonParse['data']['link'];
+		return $ImgURL;
+	} else {
+		return 0;
+	};
 }
 function push($post_data,$access_token)
 {
