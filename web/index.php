@@ -109,8 +109,8 @@ if($type == "image"){
 	  "messages" => [
 		[
 		  "type" => "image",
-		  "originalContentUrl" => $posturl
-		  "previewImageUrl" => $posturl
+		  "originalContentUrl" => "$posturl"
+		  "previewImageUrl" => "$posturl"
 		]
 	  ]
 	];
