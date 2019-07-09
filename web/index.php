@@ -108,8 +108,9 @@ if($type == "image"){
 	  "replyToken" => $reply_token,
 	  "messages" => [
 		[
-		  "type" => "text",
-		  "text" => $posturl
+		  "type" => "image",
+		  "originalContentUrl" => $posturl
+		  "previewImageUrl" => $posturl
 		]
 	  ]
 	];
