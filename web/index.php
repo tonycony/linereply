@@ -122,7 +122,7 @@ function file_get_contents_curl($url){
 function postimage($timeout,$client_id,$curl_post_array)
 {
 	$curl = curl_init();
-	curl_setopt($curl, CURLOPT_URL, 'https://api.imgur.com/3/upload');
+	curl_setopt($curl, CURLOPT_URL, 'https://api.imgur.com/3/image.json');
 	curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
 	curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Client-ID ' . $client_id));
 	curl_setopt($curl, CURLOPT_POST, 1);
