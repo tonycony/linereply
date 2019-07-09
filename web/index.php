@@ -104,17 +104,7 @@ if($type == "image"){
 	  'title' => 'image',
 	 ];
 	$posturl = postimage($timeout,$client_id,$curl_post_array);
-	$post_data = [
-	  "replyToken" => $reply_token,
-	  "messages" => [
-		[
-		  "type" => "image",
-		  "originalContentUrl" => "$posturl"
-		  "previewImageUrl" => "$posturl"
-		]
-	  ]
-	];
-	push($post_data,$access_token);
+	
 }
 function file_get_contents_curl($url){
 	$ch = curl_init();
