@@ -104,7 +104,8 @@ if($type == "image"){
 	  'title' => 'image',
 	 ];
 	$posturl = postimage($timeout,$client_id,$curl_post_array);
-	
+	$sql="UPDATE Cleaning_staff set image_url = '$posturl' WHERE user_id = '$user_id'";
+	mysqli_query($link,$sql);
 }
 function file_get_contents_curl($url){
 	$ch = curl_init();
