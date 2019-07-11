@@ -54,7 +54,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	];
 	push($post_data,$access_token);
 }
-else if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
+if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','Aleave','$Time')";
 	mysqli_query($link,$sql6);
 	$sql8="UPDATE user set area='Aleave' WHERE user_id = '$user_id'";
@@ -94,7 +94,7 @@ if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	];
 	push($post_data,$access_token);
 }
-else if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
+if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','Bleave','$Time')";
 	mysqli_query($link,$sql6);
 	$sql8="UPDATE user set area='Bleave' WHERE user_id = '$user_id'";
