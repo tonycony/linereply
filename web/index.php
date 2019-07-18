@@ -57,12 +57,6 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','Aleave','$Time')";
 	mysqli_query($link,$sql6);
-	$sql = "SELECT * FROM user where user_id = '$user_id'";
-	$row = mysqli_fetch_array(mysqli_query($link,$sql));	
-	if($row['area']=="A"){
-		$sql3="UPDATE user set area==NULL WHERE user_id = '$user_id'";
-		mysqli_query($link,$sql3);
-	}
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
@@ -101,12 +95,6 @@ if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','Bleave','$Time')";
 	mysqli_query($link,$sql6);
-	$sql2 = "SELECT * FROM user where user_id = '$user_id'";
-	$row2 = mysqli_fetch_array(mysqli_query($link,$sql2));	
-	if($row2['area']=="B"){
-		$sql5="UPDATE user set area==NULL WHERE user_id = '$user_id'";
-		mysqli_query($link,$sql5);
-	}
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
