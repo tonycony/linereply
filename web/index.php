@@ -61,7 +61,7 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$result1 = mysqli_query($link,$sql1);
 	$row1 = mysqli_fetch_array($result1);
 	if($row1['area']=='A'){
-		$sql5="UPDATE user set area=NULL WHERE user_id = '$user_id'";
+		$sql5="UPDATE user set area='' WHERE user_id = '$user_id'";
 		mysqli_query($link,$sql5);
 	}
 	$post_data = [
@@ -106,7 +106,7 @@ if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$result2 = mysqli_query($link,$sql2);
 	$row2 = mysqli_fetch_array($result2);
 	if($row2['area']=='B'){
-		$sql5="UPDATE user set area=NULL WHERE user_id = '$user_id'";
+		$sql5="UPDATE user set area='' WHERE user_id = '$user_id'";
 		mysqli_query($link,$sql5);
 	}
 	$post_data = [
