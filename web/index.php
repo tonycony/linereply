@@ -55,7 +55,12 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	push($post_data,$access_token);
 }
 if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
-	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','Aleave','$Time')";
+	$time1=$Time;
+	$sql="SELECT time FROM history_list WHERE process_area='A' ORDER BY ID DESC LIMIT 1";
+	$result = mysqli_query($link,$sql);$row = mysqli_fetch_array($result);
+	$time2=$row[0];
+	$sub=(strtotime($time1)-strtotime($time2));$min=$sub/60;$hour=$min/60;
+	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','Aleave','$time1','intval($hour).":".($min%60).":".($sub%60)')";
 	mysqli_query($link,$sql6);
 	$sql1 = "SELECT * FROM user where user_id = '$user_id'";
 	$result1 = mysqli_query($link,$sql1);
@@ -100,7 +105,12 @@ if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	push($post_data,$access_token);
 }
 if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
-	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','Bleave','$Time')";
+	$time1=$Time;
+	$sql="SELECT time FROM history_list WHERE process_area='B' ORDER BY ID DESC LIMIT 1";
+	$result = mysqli_query($link,$sql);$row = mysqli_fetch_array($result);
+	$time2=$row[0];
+	$sub=(strtotime($time1)-strtotime($time2));$min=$sub/60;$hour=$min/60;
+	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','Aleave','$time1','intval($hour).":".($min%60).":".($sub%60)')";
 	mysqli_query($link,$sql6);
 	$sql2 = "SELECT * FROM user where user_id = '$user_id'";
 	$result2 = mysqli_query($link,$sql2);
