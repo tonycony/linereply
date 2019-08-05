@@ -27,7 +27,7 @@ $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
 date_default_timezone_set('Asia/Taipei');
-$Time=date("Y.m.d H:i:s") ;
+$Time=date("Y-m-d H:i:s") ;
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','A','$Time')";
 	mysqli_query($link,$sql6);
