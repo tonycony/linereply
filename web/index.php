@@ -63,8 +63,10 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$sub=(strtotime($time1)-strtotime($time2));
 	$min=$sub/60;
 	$hour=$min/60;
-	$realhour= intval($hour);$realmin=$min%60;$realsec=$sub%60;
-	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','Aleave','$time1','$realhour.":".$realmin.":".$realsec')";
+	$realhour= intval($hour);
+	$realmin=$min%60;
+	$realsec=$sub%60;
+	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','Aleave','$time1','$realhour:$realmin:$realsec')";
 	mysqli_query($link,$sql6);
 	$sql1 = "SELECT * FROM user where user_id = '$user_id'";
 	$result1 = mysqli_query($link,$sql1);
@@ -117,8 +119,10 @@ if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$sub=(strtotime($time1)-strtotime($time2));
 	$min=$sub/60;
 	$hour=$min/60;
-	$realhour= intval($hour);$realmin=$min%60;$realsec=$sub%60;
-	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','Bleave','$time1','$realhour.":".$realmin.":".$realsec')";
+	$realhour= intval($hour);
+	$realmin=$min%60;
+	$realsec=$sub%60;
+	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','Bleave','$time1','$realhour:$realmin:$realsec')";
 	mysqli_query($link,$sql6);
 	$sql2 = "SELECT * FROM user where user_id = '$user_id'";
 	$result2 = mysqli_query($link,$sql2);
