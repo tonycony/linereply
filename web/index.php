@@ -56,7 +56,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 }
 if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$time1=$Time;
-	$sql="SELECT time FROM history_list WHERE process_area='A' ORDER BY ID DESC LIMIT 1";
+	$sql="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
 	$result = mysqli_query($link,$sql);
 	$row = mysqli_fetch_array($result);
 	$time2=$row[0];
@@ -112,7 +112,7 @@ if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 }
 if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$time1=$Time;
-	$sql="SELECT time FROM history_list WHERE process_area='B' ORDER BY ID DESC LIMIT 1";
+	$sql="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='B' ORDER BY ID DESC LIMIT 1";
 	$result = mysqli_query($link,$sql);
 	$row = mysqli_fetch_array($result);
 	$time2=$row[0];
