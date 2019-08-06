@@ -16,31 +16,11 @@ function push($post_data,$access_token)
 	$result = curl_exec($ch);
 	curl_close($ch); 
 }
-function iotpost($count)
-{
-	$curl = curl_init();
-	curl_setopt_array($curl, array(
-	  CURLOPT_URL => "https://iot.cht.com.tw/iot/v1/device/17944804838/rawdata",
-	  CURLOPT_RETURNTRANSFER => true,
-	  CURLOPT_ENCODING => "",
-	  CURLOPT_MAXREDIRS => 10,
-	  CURLOPT_TIMEOUT => 30,
-	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	  CURLOPT_CUSTOMREQUEST => "POST",
-	  CURLOPT_POSTFIELDS => "[\r\n  {\r\n    \"id\": \"A\",\r\n    \"save\": true,\r\n    \"value\": [\"$count\"]\r\n  }\r\n]",
-	  CURLOPT_HTTPHEADER => array(
-	    "CK: DK7UCUHT1HB5BB0G71",
-	    "Content-Type: application/json",
-	  ),
-	));
-	$response = curl_exec($curl);
-	curl_close($curl);
-}
 function iotget($url)
 {
 	$curl = curl_init();
 	curl_setopt_array($curl, array(
-	  CURLOPT_URL => "$url",
+	  CURLOPT_URL => $url,
 	  CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => "",
 	  CURLOPT_MAXREDIRS => 10,
@@ -55,6 +35,26 @@ function iotget($url)
 	));
 	$response = curl_exec($curl);
 	curl_close($curl);
+}
+function iotpost($value)
+{
+	$cur = curl_init();
+	curl_setopt_array($cur, array(
+	  CURLOPT_URL => "https://iot.cht.com.tw/iot/v1/device/17944804838/rawdata",
+	  CURLOPT_RETURNTRANSFER => true,
+	  CURLOPT_ENCODING => "",
+	  CURLOPT_MAXREDIRS => 10,
+	  CURLOPT_TIMEOUT => 30,
+	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	  CURLOPT_CUSTOMREQUEST => "POST",
+	  CURLOPT_POSTFIELDS => "[\r\n  {\r\n    \"id\": \"A\",\r\n    \"save\": true,\r\n    \"value\": [\"$value\"]\r\n  }\r\n]",
+	  CURLOPT_HTTPHEADER => array(
+	    "CK: DK7UCUHT1HB5BB0G71",
+	    "Content-Type: application/json",
+	  ),
+	));
+	$response = curl_exec($cur);
+	curl_close($cur);
 }
 include("mysql_connect.inc.php");
 $access_token ='yWARnZrlhZ0gEqjA7h3kZEOIaaxTndaMIYdLh1kD/RQY0w10Jq9PH6mn5P0lKRBRsokFk7LfoUrOqii3yoERK9uldJLEEqQK0EtRHE3ug/5iNEGBkTi7+QJjIJALp2QUiC6FvMo6nkvDuU+lwsVxVgdB04t89/1O/w1cDnyilFU=';
