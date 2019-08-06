@@ -49,7 +49,7 @@ date_default_timezone_set('Asia/Taipei');
 $Time=date("Y-m-d H:i:s") ;
 $countA=0;
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	$countA++;
+	$countA;++;
 	iotpost($countA);
 	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','A','$Time')";
 	mysqli_query($link,$sql6);
@@ -76,6 +76,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	];
 	push($post_data,$access_token);
 }
+return $countA;
 if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$countA--;
 	iotpost($countA);
@@ -90,7 +91,7 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$realhour= intval($hour);
 	$realmin=$min%60;
 	$realsec=$sub%60;
-	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','Aleave','$time1','$realhour:$realmin:$realsec')";
+	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','A(leave)','$time1','$realhour:$realmin:$realsec')";
 	mysqli_query($link,$sql6);
 	$sql1 = "SELECT * FROM user where user_id = '$user_id'";
 	$result1 = mysqli_query($link,$sql1);
@@ -110,6 +111,7 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	];
 	push($post_data,$access_token);
 }
+return $countA;
 if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$Time')";
 	mysqli_query($link,$sql5);
@@ -146,7 +148,7 @@ if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$realhour= intval($hour);
 	$realmin=$min%60;
 	$realsec=$sub%60;
-	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','Bleave','$time1','$realhour:$realmin:$realsec')";
+	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','B(leave)','$time1','$realhour:$realmin:$realsec')";
 	mysqli_query($link,$sql6);
 	$sql2 = "SELECT * FROM user where user_id = '$user_id'";
 	$result2 = mysqli_query($link,$sql2);
