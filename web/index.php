@@ -98,7 +98,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	  ]
 	];
 	push($post_data,$access_token);
-}iotpost($value);
+}
 if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$value--;
 	iotpost($value);
