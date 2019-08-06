@@ -18,7 +18,6 @@ function push($post_data,$access_token)
 }
 function iotget($url){
 	$curl = curl_init();
-
 	curl_setopt_array($curl, array(
 	  CURLOPT_URL => $url,
 	  CURLOPT_RETURNTRANSFER => true,
@@ -39,18 +38,18 @@ function iotget($url){
 	$value=$json_obj->{"value"}[0];
 	return $value;
 }
-function iotpost($value)
+function iotpost($deviceurl,$area,$value)
 {
 	$cur = curl_init();
 	curl_setopt_array($cur, array(
-	  CURLOPT_URL => "https://iot.cht.com.tw/iot/v1/device/17944804838/rawdata",
+	  CURLOPT_URL => $deviceurl,
 	  CURLOPT_RETURNTRANSFER => true,
 	  CURLOPT_ENCODING => "",
 	  CURLOPT_MAXREDIRS => 10,
 	  CURLOPT_TIMEOUT => 30,
 	  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 	  CURLOPT_CUSTOMREQUEST => "POST",
-	  CURLOPT_POSTFIELDS => "[\r\n  {\r\n    \"id\": \"A\",\r\n    \"save\": true,\r\n    \"value\": [\"$value\"]\r\n  }\r\n]",
+	  CURLOPT_POSTFIELDS => "[\r\n  {\r\n    \"id\": \"$area\",\r\n    \"save\": true,\r\n    \"value\": [\"$value\"]\r\n  }\r\n]",
 	  CURLOPT_HTTPHEADER => array(
 	    "CK: DK7UCUHT1HB5BB0G71",
 	    "Content-Type: application/json",
@@ -73,7 +72,7 @@ $Time=date("Y-m-d H:i:s") ;
 $value=iotget("https://iot.cht.com.tw/iot/v1/device/17944804838/sensor/A/rawdata");
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$value++;
-	iotpost($value);
+	iotpost("https://iot.cht.com.tw/iot/v1/device/17944804838/rawdata","A",$value);
 	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','A','$Time')";
 	mysqli_query($link,$sql6);
 	$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
@@ -101,7 +100,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 }
 if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$value--;
-	iotpost($value);
+	iotpost("https://iot.cht.com.tw/iot/v1/device/17944804838/rawdata","A",$value);
 	$time1=$Time;
 	$sql="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
 	$result = mysqli_query($link,$sql);
