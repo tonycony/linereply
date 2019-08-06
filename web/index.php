@@ -54,10 +54,7 @@ function iotget($url)
 	  ),
 	));
 	$response = curl_exec($curl);
-	$json_obj = json_decode($response);
-	$event = $json_obj->{"events"}[0];
-	$value=$event->{"value"};
-	return $value;
+	curl_close($curl);
 }
 include("mysql_connect.inc.php");
 $access_token ='yWARnZrlhZ0gEqjA7h3kZEOIaaxTndaMIYdLh1kD/RQY0w10Jq9PH6mn5P0lKRBRsokFk7LfoUrOqii3yoERK9uldJLEEqQK0EtRHE3ug/5iNEGBkTi7+QJjIJALp2QUiC6FvMo6nkvDuU+lwsVxVgdB04t89/1O/w1cDnyilFU=';
@@ -73,6 +70,8 @@ $Time=date("Y-m-d H:i:s") ;
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$url="https://iot.cht.com.tw/iot/v1/device/17944804838/sensor/A/rawdata";
 	iotget($url);
+	$json_obj = json_decode($response);
+	$value=$json_obj->{"value"}[0];
 	$value++;
 	iotpost($value);
 	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','A','$Time')";
@@ -103,6 +102,8 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$url="https://iot.cht.com.tw/iot/v1/device/17944804838/sensor/A/rawdata";
 	iotget($url);
+	$json_obj = json_decode($response);
+	$value=$json_obj->{"value"}[0];
 	$value--;
 	iotpost($value);
 	$time1=$Time;
