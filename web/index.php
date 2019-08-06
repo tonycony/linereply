@@ -100,12 +100,6 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	push($post_data,$access_token);
 }
 if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
-	$url="https://iot.cht.com.tw/iot/v1/device/17944804838/sensor/A/rawdata";
-	iotget($url);
-	$json_obj = json_decode($response);
-	$value=$json_obj->{"value"}[0];
-	$value--;
-	iotpost($value);
 	$time1=$Time;
 	$sql="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
 	$result = mysqli_query($link,$sql);
