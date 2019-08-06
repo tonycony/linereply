@@ -53,7 +53,7 @@ function iotpost($value)
 	    "Content-Type: application/json",
 	  ),
 	));
-	$response = curl_exec($cur);
+	$response2 = curl_exec($cur);
 	curl_close($cur);
 }
 include("mysql_connect.inc.php");
@@ -67,13 +67,11 @@ $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
 date_default_timezone_set('Asia/Taipei');
 $Time=date("Y-m-d H:i:s") ;
+iotget("https://iot.cht.com.tw/iot/v1/device/17944804838/sensor/A/rawdata");
+$iot = json_decode($response);
+$value=$iot->{"value"}[0];
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	$url="https://iot.cht.com.tw/iot/v1/device/17944804838/sensor/A/rawdata";
-	iotget($url);
-	$json_obj = json_decode($response);
-	$value=$json_obj->{"value"}[0];
 	$value++;
-	iotpost($value);
 	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','A','$Time')";
 	mysqli_query($link,$sql6);
 	$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
@@ -98,8 +96,9 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	  ]
 	];
 	push($post_data,$access_token);
-}
+}iotpost($value);
 if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
+	$value--;
 	$time1=$Time;
 	$sql="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
 	$result = mysqli_query($link,$sql);
@@ -130,7 +129,7 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	  ]
 	];
 	push($post_data,$access_token);
-}
+}iotpost($value);
 if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$Time')";
 	mysqli_query($link,$sql5);
