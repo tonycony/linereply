@@ -70,6 +70,7 @@ $reply_token = $event->{"replyToken"};
 date_default_timezone_set('Asia/Taipei');
 $Time=date("Y-m-d H:i:s") ;
 $value=iotget("https://iot.cht.com.tw/iot/v1/device/17944804838/sensor/A/rawdata");
+$value1=iotget("https://iot.cht.com.tw/iot/v1/device/17971319719/sensor/B/rawdata");
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$value++;
 	iotpost("https://iot.cht.com.tw/iot/v1/device/17944804838/rawdata","A",$value);
@@ -133,6 +134,8 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	push($post_data,$access_token);
 }
 if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
+	$value1++;
+	iotpost("https://iot.cht.com.tw/iot/v1/device/17971319719/rawdata","B",$value);
 	$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$Time')";
 	mysqli_query($link,$sql5);
 	$sql8="UPDATE user set area='B' WHERE user_id = '$user_id'";
@@ -157,6 +160,8 @@ if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	push($post_data,$access_token);
 }
 if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
+	$value1--;
+	iotpost("https://iot.cht.com.tw/iot/v1/device/17971319719/rawdata","B",$value);
 	$time1=$Time;
 	$sql="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='B' ORDER BY ID DESC LIMIT 1";
 	$result = mysqli_query($link,$sql);
