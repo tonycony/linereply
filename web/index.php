@@ -74,10 +74,15 @@ $value1=iotget("https://iot.cht.com.tw/iot/v1/device/17944804838/sensor/B/rawdat
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$value++;
 	iotpost("A",$value);
-	$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','A','$Time')";
-	mysqli_query($link,$sql6);
-	$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
-	mysqli_query($link,$sql8);
+	$sql1 = "SELECT * FROM user where user_id = '$user_id'";
+	$result1 = mysqli_query($link,$sql1);
+	$row1 = mysqli_fetch_array($result1);
+	if($row1['area']!='A'){
+		$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','A','$Time')";
+		mysqli_query($link,$sql6);
+		$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql8);
+	}
 	$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
 	$result=mysqli_query($link,$sql);
 	$row = mysqli_fetch_array($result);
@@ -136,10 +141,15 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$value1++;
 	iotpost("B",$value1);
-	$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$Time')";
-	mysqli_query($link,$sql5);
-	$sql8="UPDATE user set area='B' WHERE user_id = '$user_id'";
-	mysqli_query($link,$sql8);
+	$sql1 = "SELECT * FROM user where user_id = '$user_id'";
+	$result1 = mysqli_query($link,$sql1);
+	$row1 = mysqli_fetch_array($result1);
+	if($row1['area']!='B'){
+		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$Time')";
+		mysqli_query($link,$sql5);
+		$sql8="UPDATE user set area='B' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql8);
+	}
 	$sql="SELECT * FROM b_air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
 	$result=mysqli_query($link,$sql);
 	$row = mysqli_fetch_array($result);
