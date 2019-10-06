@@ -1,17 +1,21 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
-  define("DB_SERVER", "52.1.151.129");
-  define("DB_USERNAME", "case");
-  define("DB_PASSWORD", "1234");
-  define("DB_DATABASE", "linebot");
-
-  $link = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
-  // you could test connection eventually using a if and else conditional statement, 
-  // feel free to take out the code below once you see Connected!
-  //mysqli_query($link,'SET CHARACTER SET utf8');
-  //mysqli_query($link,"SET collation_connection = 'utf8_general_ci'");
-  if ($link) {
-    echo "Connected!";
-  } else {
-    echo "Connection Failed";
-  }
-?>
+//資料庫設定
+//資料庫位置
+$db_server = "52.1.151.129";
+//資料庫名稱
+$db_name = "linebot";
+//資料庫管理者帳號
+$db_user = "case";
+//資料庫管理者密碼
+$db_passwd = "1234";
+//對資料庫連線
+$link=mysqli_connect($db_server, $db_user, $db_passwd)
+       or die("無法對資料庫連線");
+//資料庫連線採UTF8
+mysqli_query($link,'SET CHARACTER SET utf8');
+mysqli_query($link,"SET collation_connection = 'utf8_general_ci'");
+//選擇資料庫
+mysqli_select_db($link,$db_name)
+      or die("無法使用資料庫");
+?> 
