@@ -219,8 +219,8 @@ if($type == "text"){
 			$name=substr($message,7);
 			$sql="UPDATE user set user_name='$name' where user_id='$user_id'";
 			mysqli_query($link,$sql);
-			$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
-			mysqli_query($link,$sql8);
+			//$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
+			//mysqli_query($link,$sql8);
 			$post_data = [
 			  "replyToken" => $reply_token,
 			  "messages" => [
