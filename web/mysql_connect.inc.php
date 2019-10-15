@@ -2,13 +2,13 @@
 <?php
 //資料庫設定
 //資料庫位置
-$db_server = "54.156.124.2";
+$db_server = "52.1.151.129";
 //資料庫名稱
 $db_name = "esp8266";
 //資料庫管理者帳號
-$db_user = "case";
+$db_user = "myuser";
 //資料庫管理者密碼
-$db_passwd = "1234";
+$db_passwd = "12345678";
 
 //對資料庫連線
 $link=mysqli_connect($db_server, $db_user, $db_passwd)
