@@ -74,14 +74,51 @@ $value1=iotget("https://iot.cht.com.tw/iot/v1/device/17944804838/sensor/B/rawdat
 if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$value++;
 	iotpost("A",$value);
+	$time1=$Time;
 	$sql1 = "SELECT * FROM user where user_id = '$user_id'";
 	$result1 = mysqli_query($link,$sql1);
 	$row1 = mysqli_fetch_array($result1);
-	if($row1['area']!='A'){
-		$sql6="insert into history_list(user_id,process_area,time) values ('$user_id','A','$Time')";
-		mysqli_query($link,$sql6);
-		$sql8="UPDATE user set area='A' WHERE user_id = '$user_id'";
-		mysqli_query($link,$sql8);
+	if($row1['area']=='B'){
+		$sql2="UPDATE user set area='A' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql2);
+		$sql3="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='B' ORDER BY ID DESC LIMIT 1";
+		$result3 = mysqli_query($link,$sql3);
+		$row3 = mysqli_fetch_array($result3);
+		$time3=$row3[0];
+		$sub=(strtotime($time1)-strtotime($time3));
+		$min=$sub/60;
+		$hour=$min/60;
+		$realhour= intval($hour);
+		$realmin=$min%60;
+		$realsec=$sub%60;
+		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='B' ORDER BY ID DESC LIMIT 1";
+		mysqli_query($link,$sql4);
+		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','A','$time1')";
+		mysqli_query($link,$sql5);
+	}
+	else if($row1['area']=='C'){
+		$sql2="UPDATE user set area='A' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql2);
+		$sql3="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='C' ORDER BY ID DESC LIMIT 1";
+		$result3 = mysqli_query($link,$sql3);
+		$row3 = mysqli_fetch_array($result3);
+		$time3=$row3[0];
+		$sub=(strtotime($time1)-strtotime($time3));
+		$min=$sub/60;
+		$hour=$min/60;
+		$realhour= intval($hour);
+		$realmin=$min%60;
+		$realsec=$sub%60;
+		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='C' ORDER BY ID DESC LIMIT 1";
+		mysqli_query($link,$sql4);
+		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','A','$time1')";
+		mysqli_query($link,$sql5);
+	}
+	else if($row1['area']==''){
+		$sql2="UPDATE user set area='A' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql2);
+		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','A','$time1')";
+		mysqli_query($link,$sql5);
 	}
 	$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
 	$result=mysqli_query($link,$sql);
@@ -108,23 +145,31 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$value--;
 	iotpost("A",$value);
 	$time1=$Time;
-	$sql="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
-	$result = mysqli_query($link,$sql);
-	$row = mysqli_fetch_array($result);
-	$time2=$row[0];
-	$sub=(strtotime($time1)-strtotime($time2));
-	$min=$sub/60;
-	$hour=$min/60;
-	$realhour= intval($hour);
-	$realmin=$min%60;
-	$realsec=$sub%60;
-	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','A(leave)','$time1','$realhour：$realmin：$realsec')";
-	mysqli_query($link,$sql6);
 	$sql1 = "SELECT * FROM user where user_id = '$user_id'";
 	$result1 = mysqli_query($link,$sql1);
 	$row1 = mysqli_fetch_array($result1);
-	if($row1['area']=='A'){
-		$sql5="UPDATE user set area='' WHERE user_id = '$user_id'";
+	if($row1['area']=='A' || $row1['area']==''){
+		$sql2="UPDATE user set area='' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql2);
+		$sql3="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
+		$result3 = mysqli_query($link,$sql3);
+		$row3 = mysqli_fetch_array($result3);
+		$time3=$row3[0];
+		$sub=(strtotime($time1)-strtotime($time3));
+		$min=$sub/60;
+		$hour=$min/60;
+		$realhour= intval($hour);
+		$realmin=$min%60;
+		$realsec=$sub%60;
+		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
+		mysqli_query($link,$sql4);
+		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','A(leave)','$time1')";
+		mysqli_query($link,$sql5);
+	}
+	else if($row1['area']=='B' || $row1['area']=='C'){
+		$sql2="UPDATE user set area='' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql2);
+		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','A(leave)','$time1')";
 		mysqli_query($link,$sql5);
 	}
 	$post_data = [
@@ -141,14 +186,51 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	$value1++;
 	iotpost("B",$value1);
+	$time1=$Time;
 	$sql1 = "SELECT * FROM user where user_id = '$user_id'";
 	$result1 = mysqli_query($link,$sql1);
 	$row1 = mysqli_fetch_array($result1);
-	if($row1['area']!='B'){
-		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$Time')";
+	if($row1['area']=='A'){
+		$sql2="UPDATE user set area='B' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql2);
+		$sql3="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
+		$result3 = mysqli_query($link,$sql3);
+		$row3 = mysqli_fetch_array($result3);
+		$time3=$row3[0];
+		$sub=(strtotime($time1)-strtotime($time3));
+		$min=$sub/60;
+		$hour=$min/60;
+		$realhour= intval($hour);
+		$realmin=$min%60;
+		$realsec=$sub%60;
+		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
+		mysqli_query($link,$sql4);
+		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$time1')";
 		mysqli_query($link,$sql5);
-		$sql8="UPDATE user set area='B' WHERE user_id = '$user_id'";
-		mysqli_query($link,$sql8);
+	}
+	else if($row1['area']=='C'){
+		$sql2="UPDATE user set area='B' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql2);
+		$sql3="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='C' ORDER BY ID DESC LIMIT 1";
+		$result3 = mysqli_query($link,$sql3);
+		$row3 = mysqli_fetch_array($result3);
+		$time3=$row3[0];
+		$sub=(strtotime($time1)-strtotime($time3));
+		$min=$sub/60;
+		$hour=$min/60;
+		$realhour= intval($hour);
+		$realmin=$min%60;
+		$realsec=$sub%60;
+		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='C' ORDER BY ID DESC LIMIT 1";
+		mysqli_query($link,$sql4);
+		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$time1')";
+		mysqli_query($link,$sql5);
+	}
+	else if($row1['area']==''){
+		$sql2="UPDATE user set area='B' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql2);
+		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$time1')";
+		mysqli_query($link,$sql5);
 	}
 	$sql="SELECT * FROM b_air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
 	$result=mysqli_query($link,$sql);
@@ -173,23 +255,31 @@ if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$value1--;
 	iotpost("B",$value1);
 	$time1=$Time;
-	$sql="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='B' ORDER BY ID DESC LIMIT 1";
-	$result = mysqli_query($link,$sql);
-	$row = mysqli_fetch_array($result);
-	$time2=$row[0];
-	$sub=(strtotime($time1)-strtotime($time2));
-	$min=$sub/60;
-	$hour=$min/60;
-	$realhour= intval($hour);
-	$realmin=$min%60;
-	$realsec=$sub%60;
-	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','B(leave)','$time1','$realhour:$realmin:$realsec')";
-	mysqli_query($link,$sql6);
-	$sql2 = "SELECT * FROM user where user_id = '$user_id'";
-	$result2 = mysqli_query($link,$sql2);
-	$row2 = mysqli_fetch_array($result2);
-	if($row2['area']=='B'){
-		$sql5="UPDATE user set area='' WHERE user_id = '$user_id'";
+	$sql1 = "SELECT * FROM user where user_id = '$user_id'";
+	$result1 = mysqli_query($link,$sql1);
+	$row1 = mysqli_fetch_array($result1);
+	if($row1['area']=='B' || $row1['area']==''){
+		$sql2="UPDATE user set area='' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql2);
+		$sql3="SELECT time FROM history_list WHERE user_id = '$user_id' && process_area='B' ORDER BY ID DESC LIMIT 1";
+		$result3 = mysqli_query($link,$sql3);
+		$row3 = mysqli_fetch_array($result3);
+		$time3=$row3[0];
+		$sub=(strtotime($time1)-strtotime($time3));
+		$min=$sub/60;
+		$hour=$min/60;
+		$realhour= intval($hour);
+		$realmin=$min%60;
+		$realsec=$sub%60;
+		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='B' ORDER BY ID DESC LIMIT 1";
+		mysqli_query($link,$sql4);
+		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B(leave)','$time1')";
+		mysqli_query($link,$sql5);
+	}
+	else if($row1['area']=='A' || $row1['area']=='C'){
+		$sql2="UPDATE user set area='' WHERE user_id = '$user_id'";
+		mysqli_query($link,$sql2);
+		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B(leave)','$time1')";
 		mysqli_query($link,$sql5);
 	}
 	$post_data = [
