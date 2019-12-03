@@ -91,7 +91,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 		$realhour= intval($hour);
 		$realmin=$min%60;
 		$realsec=$sub%60;
-		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='B' ORDER BY ID DESC LIMIT 1";
+		$sql4="UPDATE history_list set stay='$realhour:$realmin:$realsec' WHERE user_id = '$user_id' && process_area='B' ORDER BY ID DESC LIMIT 1";
 		mysqli_query($link,$sql4);
 		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','A','$time1')";
 		mysqli_query($link,$sql5);
@@ -109,7 +109,7 @@ if('012b789221' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 		$realhour= intval($hour);
 		$realmin=$min%60;
 		$realsec=$sub%60;
-		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='C' ORDER BY ID DESC LIMIT 1";
+		$sql4="UPDATE history_list set stay='$realhour:$realmin:$realsec' WHERE user_id = '$user_id' && process_area='C' ORDER BY ID DESC LIMIT 1";
 		mysqli_query($link,$sql4);
 		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','A','$time1')";
 		mysqli_query($link,$sql5);
@@ -161,7 +161,7 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 		$realhour= intval($hour);
 		$realmin=$min%60;
 		$realsec=$sub%60;
-		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
+		$sql4="UPDATE history_list set stay='$realhour:$realmin:$realsec' WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
 		mysqli_query($link,$sql4);
 		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','A(leave)','$time1')";
 		mysqli_query($link,$sql5);
@@ -203,7 +203,7 @@ if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 		$realhour= intval($hour);
 		$realmin=$min%60;
 		$realsec=$sub%60;
-		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
+		$sql4="UPDATE history_list set stay='$realhour:$realmin:$realsec' WHERE user_id = '$user_id' && process_area='A' ORDER BY ID DESC LIMIT 1";
 		mysqli_query($link,$sql4);
 		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$time1')";
 		mysqli_query($link,$sql5);
@@ -221,7 +221,7 @@ if('012beb3721' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 		$realhour= intval($hour);
 		$realmin=$min%60;
 		$realsec=$sub%60;
-		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='C' ORDER BY ID DESC LIMIT 1";
+		$sql4="UPDATE history_list set stay='$realhour:$realmin:$realsec' WHERE user_id = '$user_id' && process_area='C' ORDER BY ID DESC LIMIT 1";
 		mysqli_query($link,$sql4);
 		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B','$time1')";
 		mysqli_query($link,$sql5);
@@ -271,7 +271,7 @@ if('012beb3721' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 		$realhour= intval($hour);
 		$realmin=$min%60;
 		$realsec=$sub%60;
-		$sql4="UPDATE history_list set stay='$realhour：$realmin：$realsec' WHERE user_id = '$user_id' && process_area='B' ORDER BY ID DESC LIMIT 1";
+		$sql4="UPDATE history_list set stay='$realhour:$realmin:$realsec' WHERE user_id = '$user_id' && process_area='B' ORDER BY ID DESC LIMIT 1";
 		mysqli_query($link,$sql4);
 		$sql5="insert into history_list(user_id,process_area,time) values ('$user_id','B(leave)','$time1')";
 		mysqli_query($link,$sql5);
