@@ -118,7 +118,7 @@ if('012b789221' == $event->beacon->hwid && 'leave'==$event->beacon->type){
 	$realhour= intval($hour);
 	$realmin=$min%60;
 	$realsec=$sub%60;
-	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','A(leave)','$time1','$realhour:$realmin:$realsec')";
+	$sql6="insert into history_list(user_id,process_area,time,stay) values ('$user_id','A(leave)','$time1','$realhour：$realmin：$realsec')";
 	mysqli_query($link,$sql6);
 	$sql1 = "SELECT * FROM user where user_id = '$user_id'";
 	$result1 = mysqli_query($link,$sql1);
