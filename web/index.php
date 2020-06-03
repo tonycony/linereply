@@ -26,9 +26,7 @@ $message = $event->{"message"}->{"text"};
 $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
 date_default_timezone_set('Asia/Taipei');
-$Time=date("Y-m-d H:i:s") ;
-$value=iotget("https://iot.cht.com.tw/iot/v1/device/17944804838/sensor/A/rawdata");
-$value1=iotget("https://iot.cht.com.tw/iot/v1/device/17944804838/sensor/B/rawdata");
+
 if('013e6460ee' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	
 	$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
