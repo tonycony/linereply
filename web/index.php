@@ -27,7 +27,16 @@ $user_id  = $event->{"source"}->{"userId"};
 $reply_token = $event->{"replyToken"};
 date_default_timezone_set('Asia/Taipei');
 if($type == "text"){
-    push('HI',$access_token);
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => 'HI'
+		]
+	  ]
+	];
+    push($post_data,$access_token);
 }
 if('013e6460ee' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 	
