@@ -1,6 +1,6 @@
 <?php
 include("mysql_connect.inc.php");
-$access_token ='IOLzhvJfIAaQgH3xi7ppOr+spSkkHIXQ4MJNeRDaYA9+s+oQNqtRc5zp49lfFSWBGjsErF/pj1M1SWjnsCass2BfuhGBajbYq1xLyxh53d5lJJNDnWq8nWl7tp6JyBCZMtRJ6xMjGAKnZxkQkPqg1AdB04t89/1O/w1cDnyilFU=';
+$access_token ='ylC4bIeHjRfORJkjFIO+Nr5xJmVcyRT0wTBfTK39y4MrMfyrCpVPrh17C5L7B+Qi+7FvCQdPgwnhiwUjY+/zdZ1Q2WTJeuI5lZzXF7TCgCe3spxowyQmi7chHySTW0cVB1f9E1EYn8o+HTrndV3NsAdB04t89/1O/w1cDnyilFU=';
 //define('TOKEN', '你的Channel Access Token');
 $json_obj = json_decode(file_get_contents('php://input'));
 $event = $json_obj->{"events"}[0];
