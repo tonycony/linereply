@@ -32,7 +32,7 @@ if($type == "text"){
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => 'HI'
+		  "text" => $message
 		]
 	  ]
 	];
