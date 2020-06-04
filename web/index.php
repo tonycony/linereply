@@ -39,8 +39,17 @@ if($type == "text"){
     push($post_data,$access_token);
 }
 if('013e6460ee' == $event->beacon->hwid && 'enter'==$event->beacon->type){
-	
-	$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => 'W'
+		]
+	  ]
+	];
+    	push($post_data,$access_token);
+	/*$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
 	$result=mysqli_query($link,$sql);
 	$row = mysqli_fetch_array($result);
 	$replymessage='歡迎來到A區'."\n"
@@ -59,7 +68,7 @@ if('013e6460ee' == $event->beacon->hwid && 'enter'==$event->beacon->type){
 		]
 	  ]
 	];
-	push($post_data,$access_token);
+	push($post_data,$access_token);*/
 }
 
 ?>
