@@ -29,6 +29,18 @@ date_default_timezone_set('Asia/Taipei');
 if($type == "text"){
 	$sql="SELECT * FROM air_information ORDER BY ID DESC LIMIT 1";//選擇最新的空氣資訊
 	$result=mysqli_query($link,$sql);
+	if (!$result){
+	$post_data = [
+	  "replyToken" => $reply_token,
+	  "messages" => [
+		[
+		  "type" => "text",
+		  "text" => '連線錯誤'
+		]
+	  ]
+	];
+	push($post_data,$access_token);	
+	}
 	$row = mysqli_fetch_array($result);
 	$replymessage='歡迎！'."\n"
 	.'提供您空氣品質資訊'."\n"
