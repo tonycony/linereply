@@ -58,13 +58,13 @@ if($type == "text"){
 	];
     	push($post_data,$access_token);
 }
-if('013e6460ee' == $event->beacon->hwid && 'enter'==$event->beacon->type){
+if('enter'==$event->beacon->type){ //'013e6460ee' == $event->beacon->hwid && 'enter'==$event->beacon->type
 	$post_data = [
 	  "replyToken" => $reply_token,
 	  "messages" => [
 		[
 		  "type" => "text",
-		  "text" => 'W'
+		  "text" => 'Welcome!'
 		]
 	  ]
 	];
