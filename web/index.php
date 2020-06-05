@@ -42,7 +42,7 @@ if($type == "text"){
 	push($post_data,$access_token);	
 	}
 	$row = mysqli_fetch_array($result);
-	$replymessage='您查詢的空氣品質如下：！'."\n"
+	$replymessage='您查詢的空氣品質如下：'."\n"
 	.'溫度是'.(string)$row['Temperature']."°C\n"
 	.'濕度是'.(string)$row['Humidity']."%\n"
 	.'Co濃度是'.(string)$row['Co']."\n";//回傳給使用者之資訊 \n要用""
